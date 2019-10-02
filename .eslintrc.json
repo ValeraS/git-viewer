@@ -1,0 +1,33 @@
+{
+  "root": true,
+  "plugins": ["prettier", "react-hooks"],
+  "extends": [
+    "eslint:recommended",
+    "plugin:import/errors",
+    "plugin:import/warnings",
+    "plugin:react/recommended",
+    "plugin:jsx-a11y/recommended",
+    "prettier"
+  ],
+  "env": {
+    "browser": true,
+    "node": true
+  },
+  "rules": {
+    "prettier/prettier": "error",
+    "react-hooks/rules-of-hooks": "error",
+    "react-hooks/exhaustive-deps": "warn"
+  },
+  "parserOptions": {
+    "ecmaVersion": 2018,
+    "sourceType": "module",
+    "ecmaFeatures": {
+      "jsx": true
+    }
+  },
+  "settings": {
+    "react": {
+      "version": "detect"
+    }
+  }
+}

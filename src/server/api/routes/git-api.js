@@ -1,6 +1,6 @@
 import { Router } from 'express';
 import { Container } from 'typedi';
-import attachCurrentRepo from 'server/api/middlewares/attachCurrentRepo';
+import { currentRepoHandler } from 'server/api/middleware/current-repo-handler';
 
 /**
  * @param {Router} app
@@ -15,7 +15,7 @@ export default app => {
   );
 
   const route = Router();
-  reposRoute.use('/:repositoryId', attachCurrentRepo, route);
+  reposRoute.use('/:repositoryId', currentRepoHandler(Container), route);
 
   route.get(
     '/commits/:commitHash*/diff',

@@ -1,8 +1,15 @@
 const path = require('path');
 const merge = require('webpack-merge');
+const nodeExternals = require('webpack-node-externals');
+const { DefinePlugin } = require('webpack');
 const defaultConfig = require('./common.webpack.config');
+const {
+  LAZY_COMPONENT_PLUGIN,
+} = require('../babel/lazy-component-babel-plugin');
 
 module.exports = env => {
+  const IS_PRODUCTION = env && env.production;
+
   return merge(defaultConfig(env), {
     name: 'server',
     entry: path.resolve('src/server/index.js'),
@@ -14,14 +21,14 @@ module.exports = env => {
       libraryTarget: 'commonjs2',
     },
 
-    externals: {
-      fs: 'commonjs fs',
-      path: 'commonjs path',
-      react: 'commonjs react',
-      express: 'commonjs express',
-      'body-parser': 'commonjs body-parser',
-      child_process: 'commonjs child_process',
-    },
+    externals: [
+      nodeExternals(),
+      {
+        fs: 'commonjs fs',
+        path: 'commonjs path',
+        child_process: 'commonjs child_process',
+      },
+    ],
 
     module: {
       rules: [
@@ -57,6 +64,7 @@ module.exports = env => {
                       '@babel/preset-react',
                     ],
                     plugins: [
+                      LAZY_COMPONENT_PLUGIN,
                       '@babel/plugin-proposal-class-properties',
                       '@babel/plugin-transform-runtime',
                     ],
@@ -68,5 +76,12 @@ module.exports = env => {
         },
       ],
     },
+
+    plugins: [
+      new DefinePlugin({
+        'typeof window': '"undefined"',
+        'process.env.NODE_ENV': IS_PRODUCTION ? '"production"' : '""',
+      }),
+    ],
   });
 };

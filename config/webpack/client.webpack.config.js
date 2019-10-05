@@ -1,6 +1,11 @@
 const path = require('path');
 const merge = require('webpack-merge');
+const WebpackManifestPlugin = require('webpack-manifest-plugin');
+const { DefinePlugin } = require('webpack');
 const defaultConfig = require('./common.webpack.config');
+const {
+  LAZY_COMPONENT_PLUGIN,
+} = require('../babel/lazy-component-babel-plugin');
 
 module.exports = env => {
   const IS_PRODUCTION = env && env.production;
@@ -43,13 +48,14 @@ module.exports = env => {
                         {
                           modules: false,
                           loose: true,
-                          useBuiltIs: 'usage',
+                          useBuiltIns: 'usage',
                           corejs: 3,
                         },
                       ],
                       '@babel/preset-react',
                     ],
                     plugins: [
+                      LAZY_COMPONENT_PLUGIN,
                       '@babel/plugin-proposal-class-properties',
                       '@babel/plugin-transform-runtime',
                     ],
@@ -61,5 +67,28 @@ module.exports = env => {
         },
       ],
     },
+
+    plugins: [
+      new WebpackManifestPlugin({
+        fileName: '../../asset-manifest.json',
+        publicPath: PUBLIC_PATH,
+        generate(seed, files) {
+          let manifestFiles = files.reduce(function(manifest, file) {
+            if (file.name) {
+              manifest[file.name] = file.path;
+            }
+
+            return manifest;
+          }, seed);
+
+          return {
+            files: manifestFiles,
+          };
+        },
+      }),
+      new DefinePlugin({
+        'typeof window': '"object"',
+      }),
+    ],
   });
 };

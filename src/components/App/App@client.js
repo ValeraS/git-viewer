@@ -5,7 +5,10 @@ import { BrowserRouter } from 'react-router-dom';
 
 import { Provider } from 'react-redux';
 import { createStore } from 'app-store';
-import { App as BaseApp } from 'components/App/App@desktop';
+import { App as DesktopApp } from './App@desktop';
+
+let BaseApp;
+BaseApp = DesktopApp;
 
 export const App = function App({ state }) {
   return (

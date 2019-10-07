@@ -1,3 +1,1 @@
-export const Footer = function() {
-  return null;
-};
+export { Footer } from './Footer';

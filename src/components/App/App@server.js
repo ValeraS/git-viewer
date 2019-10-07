@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 
 import { Provider } from 'react-redux';
 import { createStore } from 'app-store';
-import { App as BaseApp } from 'components/App/App@desktop';
+import { App as BaseApp } from './App@desktop';
 import { StaticRouter } from 'react-router';
 
 import htmlEscapeJson from 'htmlescape';
@@ -20,7 +20,7 @@ export const App = function App({ url, state: { state, js, css } }) {
               <link rel="stylesheet" href={file} key={file} />
             ))}
 
-            <title>ШРИ: React</title>
+            <title>ШРИ: Arcanum</title>
 
             <meta
               name="viewport"

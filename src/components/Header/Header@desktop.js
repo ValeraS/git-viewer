@@ -1,3 +1,3 @@
-export const Header = function() {
-  return null;
-};
+export { Header } from './Header';
+
+import './Header@desktop.css';

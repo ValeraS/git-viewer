@@ -72,6 +72,10 @@ module.exports = env => {
                 },
               ],
             },
+            {
+              test: /\.css$/,
+              loader: 'null-loader',
+            },
           ],
         },
       ],

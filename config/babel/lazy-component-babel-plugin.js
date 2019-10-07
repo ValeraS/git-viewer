@@ -21,7 +21,7 @@ module.exports = function lazyComponentBabelPlugin() {
 
         if (
           !t.isCallExpression(body) ||
-          !t.isIdentifier(body.callee, { name: 'dynamicImport' })
+          !t.isIdentifier(body.callee, { name: '_dynamicImport' })
         ) {
           return;
         }

@@ -59,9 +59,34 @@ RepoService.prototype.diff = async function(repo, commitHash) {
   };
 };
 
-RepoService.prototype.tree = async function(repo, commitHash = '@', path = '') {
-  const out = await repo.tree([`${commitHash}:${path}`]).getOutput();
-  const tree = out.split('\n').reduce((records, el) => {
+RepoService.prototype.branches = async function(repo) {
+  const branches = (await repo.branch().getOutput())
+    .trim()
+    .split('\n')
+    .map(name => {
+      if (name.startsWith('*')) {
+        return {
+          active: true,
+          name: name.substr(1).trim(),
+        };
+      }
+      return {
+        active: false,
+        name: name.trim(),
+      };
+    });
+  return branches;
+};
+
+RepoService.prototype.tree = async function(repo, urlPath = '') {
+  const branch = await this._getBranchFromUrl(repo, urlPath);
+  if (!branch) {
+    return null;
+  }
+  const path = urlPath.substr(branch.length + 1);
+
+  const out = await repo.tree([`${branch}:${path}`]).getOutput();
+  const files = out.split('\n').reduce((records, el) => {
     if (!el) {
       return records;
     }
@@ -74,7 +99,11 @@ RepoService.prototype.tree = async function(repo, commitHash = '@', path = '') {
     });
     return records;
   }, []);
-  return tree;
+  return {
+    branch: branch,
+    path,
+    files,
+  };
 };
 
 RepoService.prototype.blob = async function(repo, commitHash, path) {
@@ -146,4 +175,16 @@ RepoService.prototype._getRepos = async function() {
     }
   }
   return this._repoList;
+};
+
+RepoService.prototype._getBranchFromUrl = async function(repo, url) {
+  const branches = await this.branches(repo);
+  if (url) {
+    for (let { name } of branches) {
+      if (url.startsWith(name + '/') || url === name) {
+        return name;
+      }
+    }
+  }
+  return branches.find(({ active }) => active).name;
 };

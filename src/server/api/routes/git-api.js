@@ -50,11 +50,10 @@ export default app => {
     )
   );
   route.get(
-    '/tree/:commitHash/:path*',
+    '/tree/:path*',
     routeJSONHandler((req, res) =>
       Container.get('RepoService').tree(
         res.locals.repo,
-        req.params.commitHash,
         req.params.path + req.params[0]
       )
     )

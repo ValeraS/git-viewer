@@ -1,0 +1,34 @@
+.Dropdown {
+  display: inline-block;
+  position: relative;
+
+  margin-right: 20px;
+  height: 100%;
+}
+
+.Dropdown-Button {
+  height: 100%;
+  border: none;
+  padding: 0;
+  white-space: nowrap;
+  font: inherit;
+  cursor: pointer;
+  outline: none;
+  background: transparent;
+}
+
+.Dropdown-Button::after {
+  display: inline-block;
+  width: 12px;
+  height: 12px;
+  position: absolute;
+  background: url('/assets/img/dropdown-arrow-down.svg') 50% no-repeat;
+  top: 50%;
+  transform: translateY(-50%);
+
+  content: '';
+}
+
+.Dropdown-Button_open::after {
+  transform: translateY(-50%) rotate(180deg);
+}

@@ -6,11 +6,17 @@ import {
 } from 'redux';
 import thunk from 'redux-thunk';
 import { routerReducer } from 'app-store/router/reducers';
+import { reposReducer } from 'app-store/repos/reducer';
+import { repoReducer } from 'app-store/repo/reducer';
+import { treeReducer } from 'app-store/tree/reducer';
 
 export const MERGE_STATE = 'MERGE_STATE';
 
 let storeReducer = combineReducers({
   router: routerReducer,
+  repos: reposReducer,
+  repo: repoReducer,
+  tree: treeReducer,
 });
 
 export function mergeState(state) {

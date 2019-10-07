@@ -1,0 +1,43 @@
+
+.Typo {
+  font-weight: normal;
+  font-family: 'YS Text', Arial, Helvetica, sans-serif;
+  font-style: normal;
+  font-stretch: normal;
+  letter-spacing: normal;
+  text-transform: none;
+}
+
+.Typo_weight_bold {
+  font-weight: bold;
+}
+
+.Typo-Caps {
+  text-transform: uppercase;
+}
+
+.Typo_size_xl {
+  font-size: var(--font-size-xl);
+  line-height: var(--line-height-xl);
+}
+
+.Typo_size_l {
+  font-size: var(--font-size-l);
+  line-height: var(--line-height-l);
+}
+
+.Typo_size_m {
+  font-size: var(--font-size-m);
+  line-height: var(--line-height-m);
+}
+
+.Typo_size_s {
+  font-size: var(--font-size-s);
+  line-height: var(--line-height-s);
+}
+
+.Typo-Code {
+  font-size: var(--font-size-xs);
+  font-family: 'RT Mono', monospace;
+  line-height: var(--line-height-xs);
+}

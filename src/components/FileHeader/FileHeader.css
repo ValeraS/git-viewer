@@ -1,0 +1,9 @@
+.FileHeader {
+  display: flex;
+  align-items: center;
+}
+
+.FileHeader-Title {
+  margin: 0;
+  margin-right: var(--space-xxs);
+}

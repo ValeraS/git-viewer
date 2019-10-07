@@ -91,23 +91,52 @@ RepoService.prototype.tree = async function(repo, urlPath = '') {
       return records;
     }
     const [metadata, filename] = el.split('\t');
-    const [, type, hash] = metadata.split(/\s+/);
+    const [, type] = metadata.split(/\s+/);
     records.push({
       filename,
       type,
-      hash,
     });
     return records;
   }, []);
+
+  let pathPrefix = path;
+  if (pathPrefix && !pathPrefix.endsWith('/')) {
+    pathPrefix = pathPrefix + '/';
+  }
+  const filesInfo = await Promise.all(
+    files.map(async ({ filename, ...other }) => {
+      const info = await this.fileInfo(
+        repo,
+        branch,
+        `${pathPrefix}${filename}`
+      );
+      return { ...other, ...info, filename };
+    })
+  );
+
   return {
-    branch: branch,
+    branch,
     path,
-    files,
+    files: filesInfo,
   };
 };
 
-RepoService.prototype.blob = async function(repo, commitHash, path) {
-  const task = await repo.show([`${commitHash}:${path}`]);
+RepoService.prototype.fileInfo = async function(repo, commitHash, path) {
+  const [hash, committer, date, subject] = (await repo
+    .log([commitHash, '-1', '--format=%H%n%cN%n%cI%n%s', path])
+    .getOutput()).split('\n');
+  return { hash, committer, date, subject };
+};
+
+RepoService.prototype.blob = async function(repo, urlPath) {
+  const branch = await this._getBranchFromUrl(repo, urlPath);
+  if (!branch) {
+    return null;
+  }
+
+  const path = urlPath.substr(branch.length + 1);
+
+  const task = await repo.show([`${branch}:${path}`]);
   return {
     done: task.done,
     stream: task.process.stdout,

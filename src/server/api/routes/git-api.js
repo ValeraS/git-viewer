@@ -50,23 +50,16 @@ export default app => {
     )
   );
   route.get(
-    '/tree/:path*',
+    '/tree/*',
     routeJSONHandler((req, res) =>
-      Container.get('RepoService').tree(
-        res.locals.repo,
-        req.params.path + req.params[0]
-      )
+      Container.get('RepoService').tree(res.locals.repo, req.params[0])
     )
   );
 
   route.get(
-    '/blob/:commitHash/*',
+    '/blob/*',
     routeStreamHandler((req, res) => {
-      Container.get('RepoService').blob(
-        res.locals.repo,
-        req.params.commitHash,
-        req.params[0]
-      );
+      Container.get('RepoService').blob(res.locals.repo, req.params[0]);
     })
   );
 

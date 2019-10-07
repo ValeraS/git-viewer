@@ -54,7 +54,7 @@ Repo.prototype._run = function(command, options, opts = {}) {
   if (Array.isArray(options)) {
     cmd.push(...options);
   }
-  this._logger.info(cmd);
+  this._logger.info({ cmd, opts });
   return this._gitRunner.run(cmd, opts);
 };
 

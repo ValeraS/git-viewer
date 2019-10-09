@@ -5,6 +5,8 @@ import { useComponentRegistry } from '@bem-react/di';
 
 import { registryId } from 'components/App/App';
 import { Dropdown } from 'components/Dropdown/Dropdown';
+import { Popup } from 'components/Popup/Popup';
+
 import { cnActiveElement } from 'components/ActiveElement/ActiveElement';
 import { cnTypo } from 'components/Typo/Typo';
 
@@ -18,7 +20,7 @@ const cnHeader = cn('Header');
 
 export const Header = function Header({ className }) {
   const repos = useSelector(getRepos);
-  const { repo } = useSelector(getRepo);
+  const { repoId } = useSelector(getRepo) || {};
   const options = repos.map(repoId => ({
     value: repoId,
     label: repoId,
@@ -34,8 +36,9 @@ export const Header = function Header({ className }) {
         <Dropdown
           options={options}
           title="Repository"
-          value={repo}
+          value={repoId}
           className={cnTypo({ size: 'm' }, [cnActiveElement()])}
+          renderContainer={props => <Popup {...props} />}
         />
       </div>
     </header>

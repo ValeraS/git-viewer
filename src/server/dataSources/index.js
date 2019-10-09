@@ -1,5 +1,6 @@
 import { Routes } from 'pages';
 import { getFilesState } from 'server/dataSources/files';
+import { Container } from 'typedi';
 
 export async function getData(router) {
   if (!router) {
@@ -10,7 +11,7 @@ export async function getData(router) {
     case Routes.FILES:
       return getFilesState(router);
     case Routes.HOME:
-      return {};
+      return { repos: await Container.get('RepoService').getRepos() };
     default:
       throw new Error(`Cannot find data for route "${router.route}"`);
   }

@@ -2,7 +2,6 @@ import React, { useState, useRef, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { cn } from '@bem-react/classname';
 
-import { Popup } from 'components/Popup/Popup';
 import { cnTypo } from 'components/Typo/Typo';
 
 import './Dropdown.css';
@@ -13,13 +12,19 @@ export const Dropdown = function({
   title,
   hideTitle,
   value,
+  defaultValue,
   options,
   className,
   onChange,
+  renderContainer,
 }) {
   const [isOpen, setOpen] = useState(false);
-  const [currentValue, setCurrentValue] = useState(value);
+  const [currentValue, setCurrentValue] = useState(defaultValue);
   const buttonRef = useRef();
+
+  if (typeof value !== 'undefined' && currentValue !== value) {
+    setCurrentValue(value);
+  }
 
   const onClick = () => setOpen(isOpen => !isOpen);
   const onSelect = selectedOption => {
@@ -55,9 +60,13 @@ export const Dropdown = function({
         </span>{' '}
         <span className={cnDropdown('Current')}>{currentValue}</span>
       </button>
-      {isOpen && (
-        <Popup options={options} value={currentValue} onSelect={onSelect} />
-      )}
+      {isOpen &&
+        renderContainer({
+          options,
+          value: currentValue,
+          onSelect,
+          className: cnDropdown('Container'),
+        })}
     </div>
   );
 };
@@ -67,6 +76,8 @@ Dropdown.propTypes = {
   title: PropTypes.string,
   hideTitle: PropTypes.bool,
   value: PropTypes.string,
+  defaultValue: PropTypes.string,
   options: PropTypes.array,
   onChange: PropTypes.func,
+  renderContainer: PropTypes.func.isRequired,
 };

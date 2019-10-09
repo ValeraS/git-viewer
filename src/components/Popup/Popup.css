@@ -1,6 +1,4 @@
 .Popup {
-  position: absolute;
-
   margin: 0;
   padding: 0;
 
@@ -21,5 +19,5 @@
 .Popup-Link {
   display: block;
   padding: 8px 22px;
-  color: var(--text-color)
+  color: var(--text-color);
 }

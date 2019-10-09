@@ -1,3 +1,11 @@
 .Section_overflow-x_auto {
   overflow-x: auto;
 }
+
+.Section_indent-b_s {
+  margin-bottom: var(--space-s);
+}
+
+.Section_indent-b_m {
+  margin-bottom: var(--space-s);
+}

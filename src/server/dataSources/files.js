@@ -12,7 +12,7 @@ export async function getFilesState(router) {
   const branches = await service.branches(repo);
 
   const repoData = {
-    repo: repo.repoId,
+    repoId: repo.repoId,
     branches,
   };
 
@@ -24,9 +24,9 @@ export async function getFilesState(router) {
   return {
     repos,
     repo: repoData,
-    tree: {
-      ...tree,
+    pageData: {
       url: router.url,
+      data: tree,
     },
   };
 }

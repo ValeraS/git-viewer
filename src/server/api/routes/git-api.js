@@ -58,9 +58,16 @@ export default app => {
 
   route.get(
     '/blob/*',
-    routeStreamHandler((req, res) => {
-      Container.get('RepoService').blob(res.locals.repo, req.params[0]);
-    })
+    routeStreamHandler((req, res) =>
+      Container.get('RepoService').blob(res.locals.repo, req.params[0])
+    )
+  );
+
+  route.get(
+    '/branches',
+    routeJSONHandler((req, res) =>
+      Container.get('RepoService').branches(res.locals.repo)
+    )
   );
 
   route.delete('/', async (req, res, next) => {

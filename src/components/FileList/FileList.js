@@ -3,12 +3,13 @@ import PropTypes from 'prop-types';
 import { cn } from '@bem-react/classname';
 import { cnTypo } from 'components/Typo/Typo';
 import { cnDivider } from 'components/Divider/Divider';
+import { cnTable } from 'components/Table/Table';
+import { Link } from 'components/Link';
+import { CommitHash } from 'components/CommitHash/CommitHash';
 
 import 'components/Table/Table.css';
-import { Link } from 'components/Link';
 
 export const cnFileList = cn('FileList');
-export const cnTable = cn('Table');
 export const cnFileIcon = cn('FileIcon');
 
 const columns = [
@@ -20,7 +21,9 @@ const columns = [
 ];
 
 function makeSlug({ type, filename, path, repoId, branch }) {
-  return `/${repoId}/${type}/${branch}/${path}/${filename}`.replace('//', '/');
+  return `/${repoId}/${type}/${branch}/${path}/${filename}`
+    .replace(/\/\//g, '/')
+    .replace(/\/$/, '');
 }
 
 export const FileList = function({ files, path, repoId, branch, className }) {
@@ -42,9 +45,30 @@ export const FileList = function({ files, path, repoId, branch, className }) {
         </tr>
       </thead>
       <tbody>
+        {!!path && (
+          <tr className={cnTable('Line', [cnDivider()])}>
+            <td className={cnTable('Col', { nowrap: true })}>
+              <Link
+                to={makeSlug({
+                  type: 'tree',
+                  filename: '',
+                  path: path
+                    .split('/')
+                    .slice(0, -1)
+                    .join('/'),
+                  repoId,
+                  branch,
+                })}
+              >
+                {'..'}
+              </Link>
+            </td>
+            <td colSpan={4} />
+          </tr>
+        )}
         {files.map(({ filename, type, hash, subject, committer, date }) => (
           <tr key={filename} className={cnTable('Line', [cnDivider()])}>
-            <td className={cnTable('Col')}>
+            <td className={cnTable('Col', { nowrap: true })}>
               <Link
                 to={makeSlug({ type, filename, path, repoId, branch })}
                 className={cnFileIcon({ type })}
@@ -52,7 +76,9 @@ export const FileList = function({ files, path, repoId, branch, className }) {
                 {filename}
               </Link>
             </td>
-            <td className={cnTable('Col')}>{hash}</td>
+            <td className={cnTable('Col')}>
+              <CommitHash hash={hash} repoId={repoId} maxLength={6} />
+            </td>
             <td className={cnTable('Col')}>{subject}</td>
             <td className={cnTable('Col')}>{committer}</td>
             <td className={cnTable('Col')}>{date}</td>

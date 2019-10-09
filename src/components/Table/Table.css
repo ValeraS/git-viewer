@@ -25,3 +25,7 @@
   white-space: nowrap;
   text-align: right;
 }
+
+.Table-Col_nowrap {
+  white-space: nowrap;
+}

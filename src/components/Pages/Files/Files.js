@@ -9,8 +9,9 @@ import { Tabs } from 'components/Tabs/Tabs';
 import { FileList } from 'components/FileList/FileList';
 import { EnsureResources } from 'components/EnsureResources/EnsureResources';
 
-export const FilesPage = function({ data: { branch, path, files }, repo }) {
-  const { repoId, branches } = repo;
+export const FilesPage = function({ data = {}, repo = {} }) {
+  const { branch, path, files = [] } = data;
+  const { repoId, branches = [] } = repo;
   return (
     <>
       <div className={cnSection({ 'indent-b': 's' }, [cnDivider()])}>

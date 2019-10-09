@@ -1,6 +1,5 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { useSelector } from 'react-redux';
 
 import { cnSection } from 'components/Section/Section';
 import { FilePath } from 'components/FilePath/FilePath';
@@ -9,10 +8,9 @@ import { FileHeader } from 'components/FileHeader/FileHeader';
 import { Tabs } from 'components/Tabs/Tabs';
 import { FileList } from 'components/FileList/FileList';
 import { EnsureResources } from 'components/EnsureResources/EnsureResources';
-import { getRepo } from 'app-store/selectors/repo';
 
-export const FilesPage = function({ data: { branch, path, files } }) {
-  const { repoId, branches } = useSelector(getRepo);
+export const FilesPage = function({ data: { branch, path, files }, repo }) {
+  const { repoId, branches } = repo;
   return (
     <>
       <div className={cnSection({ 'indent-b': 's' }, [cnDivider()])}>
@@ -42,6 +40,7 @@ FilesPage.propTypes = {
     path: PropTypes.string,
     files: PropTypes.array,
   }),
+  repo: PropTypes.object,
 };
 
 FilesPage.prepareState = async function({ url }) {

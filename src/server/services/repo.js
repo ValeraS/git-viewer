@@ -86,18 +86,26 @@ RepoService.prototype.tree = async function(repo, urlPath = '') {
   const path = urlPath.substr(branch.length + 1);
 
   const out = await repo.tree([`${branch}:${path}`]).getOutput();
-  const files = out.split('\n').reduce((records, el) => {
-    if (!el) {
+  const files = out
+    .split('\n')
+    .reduce((records, el) => {
+      if (!el) {
+        return records;
+      }
+      const [metadata, filename] = el.split('\t');
+      const [, type] = metadata.split(/\s+/);
+      records.push({
+        filename,
+        type,
+      });
       return records;
-    }
-    const [metadata, filename] = el.split('\t');
-    const [, type] = metadata.split(/\s+/);
-    records.push({
-      filename,
-      type,
+    }, [])
+    .sort((a, b) => {
+      if (a.type === b.type) {
+        return a.filename < b.filename ? -1 : a.filename === b.filename ? 0 : 1;
+      }
+      return a.type === 'tree' ? -1 : 1;
     });
-    return records;
-  }, []);
 
   let pathPrefix = path;
   if (pathPrefix && !pathPrefix.endsWith('/')) {
@@ -123,7 +131,7 @@ RepoService.prototype.tree = async function(repo, urlPath = '') {
 
 RepoService.prototype.fileInfo = async function(repo, commitHash, path) {
   const [hash, committer, date, subject] = (await repo
-    .log([commitHash, '-1', '--format=%H%n%cN%n%cI%n%s', path])
+    .log([commitHash, '-1', '--format=%H%n%cN%n%cI%n%s', '--', path])
     .getOutput()).split('\n');
   return { hash, committer, date, subject };
 };

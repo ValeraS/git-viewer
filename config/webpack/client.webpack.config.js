@@ -74,11 +74,15 @@ module.exports = env => {
                     cacheDirectory: resolve('node_modules/.cache/babel-client'),
                   },
                 },
-                { loader: 'css-loader', options: { importLoaders: 1 } },
+                {
+                  loader: 'css-loader',
+                  options: { sourceMap: true, importLoaders: 1 },
+                },
                 {
                   loader: 'postcss-loader',
                   options: {
                     ident: 'postcss',
+                    sourceMap: true,
                     plugins: () => [require('postcss-preset-env')()],
                   },
                 },

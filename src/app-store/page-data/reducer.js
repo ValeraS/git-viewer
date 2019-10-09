@@ -8,7 +8,7 @@ export function pageDataReducer(state, action) {
     case 'SET_PAGE_URL':
       return {
         ...state,
-        pageUrl: action.payload,
+        url: action.payload,
       };
     default:
       return state || null;

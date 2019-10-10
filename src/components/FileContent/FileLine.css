@@ -1,0 +1,21 @@
+.FileLine {
+  position: relative;
+}
+
+.FileLine-Num {
+  width: 1%;
+  min-width: 30px;
+  padding-right: 10px;
+  padding-left: 10px;
+
+  color: #b8bec3;
+  white-space: nowrap;
+  text-align: right;
+}
+
+.FileLine-Code {
+  padding-right: 10px;
+  padding-left: 10px;
+
+  white-space: pre;
+}

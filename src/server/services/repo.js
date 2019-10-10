@@ -144,10 +144,11 @@ RepoService.prototype.blob = async function(repo, urlPath) {
 
   const path = urlPath.substr(branch.length + 1);
 
-  const task = await repo.show([`${branch}:${path}`]);
+  const file = await repo.show([`${branch}:${path}`]).getOutput();
   return {
-    done: task.done,
-    stream: task.process.stdout,
+    branch,
+    path,
+    file,
   };
 };
 

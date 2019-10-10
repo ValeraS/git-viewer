@@ -12,7 +12,7 @@ export const cnTabs = cn('Tabs');
 export const Tabs = function({ tabs, activeTab, className }) {
   return (
     <div className={cnTabs(null, [className])}>
-      {tabs.map(tab =>
+      {tabs.map(({ tab, to }) =>
         tab === activeTab ? (
           <div
             className={cnTabs('Tab', [
@@ -32,7 +32,7 @@ export const Tabs = function({ tabs, activeTab, className }) {
             ])}
             key={tab}
           >
-            <Link to="/branches" className={cnTabs('Link')}>
+            <Link to={to} className={cnTabs('Link')}>
               {tab}
             </Link>
           </div>
@@ -43,7 +43,12 @@ export const Tabs = function({ tabs, activeTab, className }) {
 };
 
 Tabs.propTypes = {
-  tabs: PropTypes.arrayOf(PropTypes.string).isRequired,
+  tabs: PropTypes.arrayOf(
+    PropTypes.shape({
+      tab: PropTypes.string,
+      to: PropTypes.string,
+    })
+  ).isRequired,
   activeTab: PropTypes.string,
   className: PropTypes.any,
 };

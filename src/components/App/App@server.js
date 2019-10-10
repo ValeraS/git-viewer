@@ -7,6 +7,7 @@ import { App as BaseApp } from './App@desktop';
 import { StaticRouter } from 'react-router';
 
 import { EnsureResources } from 'components/EnsureResources/EnsureResurces@server';
+import { ErrorBoundary } from 'components/ErrorBoundary/ErrorBoundary';
 
 import htmlEscapeJson from 'htmlescape';
 
@@ -31,9 +32,11 @@ export const App = function App({ url, state: { state, js, css } }) {
           </head>
           <body>
             <div id="root">
-              <EnsureResources>
-                {props => <BaseApp {...props} />}
-              </EnsureResources>
+              <ErrorBoundary>
+                <EnsureResources>
+                  {props => <BaseApp {...props} />}
+                </EnsureResources>
+              </ErrorBoundary>
             </div>
 
             <script

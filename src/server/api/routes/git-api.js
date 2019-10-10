@@ -58,10 +58,17 @@ export default app => {
 
   route.get(
     '/blob/*',
-    routeStreamHandler((req, res) =>
+    routeJSONHandler((req, res) =>
       Container.get('RepoService').blob(res.locals.repo, req.params[0])
     )
   );
+
+  // route.get(
+  //   '/blob/*',
+  //   routeStreamHandler((req, res) =>
+  //     Container.get('RepoService').blob(res.locals.repo, req.params[0])
+  //   )
+  // );
 
   route.get(
     '/branches',

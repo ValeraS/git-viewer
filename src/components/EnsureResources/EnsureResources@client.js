@@ -9,41 +9,44 @@ import { fetchRepo } from 'app-store/repo/actions';
 
 export const EnsureResources = function({ children }) {
   const location = useLocation();
-  const repo = useSelector(getRepo);
+  const repo = useSelector(getRepo) || {};
   const data = useSelector(getPageData);
   const pageUrl = useSelector(getPageUrl);
   const [state, setState] = useState({ location, repo, data });
-  const [prevLocation, setPrevLocation] = useState({});
+  const [updateView, setUpdateView] = useState({});
 
   const dispatch = useDispatch();
   const match = matchPath(location.pathname, '/:repoId');
 
-  const isLocationChanged = prevLocation !== location;
-  const nextRepoId = match.params.repoId;
-  const needUpdateRepo = nextRepoId && nextRepoId !== repo.repoId;
+  const nextRepoId = (match && match.params.repoId) || '';
+  const needUpdateRepo = nextRepoId !== repo.repoId;
   const needUpdatePageData = location.pathname !== pageUrl;
 
   useEffect(() => {
-    if (needUpdateRepo && isLocationChanged) {
-      dispatch(fetchRepo(nextRepoId));
+    async function waitForSources(sources) {
+      await Promise.all(sources);
+      setUpdateView(true);
     }
-  }, [nextRepoId, needUpdateRepo, isLocationChanged, dispatch]);
-
-  useEffect(() => {
+    const sources = [];
     if (needUpdatePageData) {
-      dispatch(fetchPageData(location.pathname));
+      sources.push(dispatch(fetchPageData(location.pathname)));
     }
-  }, [location.pathname, needUpdatePageData, dispatch]);
+    if (needUpdateRepo) {
+      sources.push(dispatch(fetchRepo(nextRepoId)));
+    }
+    if (sources.length) {
+      waitForSources(sources);
+    }
+  }, [
+    location.pathname,
+    needUpdatePageData,
+    dispatch,
+    needUpdateRepo,
+    nextRepoId,
+  ]);
 
-  if (isLocationChanged) {
-    setPrevLocation(location);
-  }
-
-  if (
-    !needUpdateRepo &&
-    !needUpdatePageData &&
-    (state.repo !== repo || state.data !== data)
-  ) {
+  if (updateView) {
+    setUpdateView(false);
     setState({ location, repo, data });
   }
 

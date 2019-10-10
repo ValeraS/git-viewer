@@ -7,6 +7,7 @@ import { PAGES } from 'pages';
 
 import { useComponentRegistry } from '@bem-react/di';
 
+import { ErrorBoundary } from 'components/ErrorBoundary/ErrorBoundary';
 import { cnTheme } from 'components/Theme/Theme';
 import { cnTypo } from 'components/Typo/Typo';
 
@@ -26,19 +27,25 @@ export function App({ location, ...props }) {
       ])}
     >
       <Header className={cnApp('Header')} />
-      <main className={cnApp('Main')}>
-        <Switch location={location}>
-          {Object.keys(PAGES).map(route => {
-            const RouteComponent = routeProps => {
-              const Component = PAGES[route].component;
-              return <Component {...routeProps} {...props} />;
-            };
-            return (
-              <Route key={route} {...PAGES[route]} component={RouteComponent} />
-            );
-          })}
-        </Switch>
-      </main>
+      <ErrorBoundary>
+        <main className={cnApp('Main')}>
+          <Switch location={location}>
+            {Object.keys(PAGES).map(route => {
+              const RouteComponent = routeProps => {
+                const Component = PAGES[route].component;
+                return <Component {...routeProps} {...props} />;
+              };
+              return (
+                <Route
+                  key={route}
+                  {...PAGES[route]}
+                  component={RouteComponent}
+                />
+              );
+            })}
+          </Switch>
+        </main>
+      </ErrorBoundary>
       <Footer className={cnApp('Footer')} />
     </div>
   );

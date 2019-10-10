@@ -17,7 +17,7 @@ export function setPageUrl(url) {
 
 export function fetchPageData(path) {
   const result = matchUrl(path);
-  const preparePageData = PAGES[result.route].preparePageData;
+  const preparePageData = result && PAGES[result.route].preparePageData;
   return async function(dispatch) {
     if (typeof preparePageData === 'function') {
       try {

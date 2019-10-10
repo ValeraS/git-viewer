@@ -2,31 +2,32 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 import { cnSection } from 'components/Section/Section';
-import { FilePath } from 'components/FilePath/FilePath';
 import { cnDivider } from 'components/Divider/Divider';
+import { FilePath } from 'components/FilePath/FilePath';
 import { FileHeader } from 'components/FileHeader/FileHeader';
-import { Tabs } from 'components/Tabs/Tabs';
-import { FileList } from 'components/FileList/FileList';
 import { NotFoundPage } from '../404/404';
+import { Tabs } from 'components/Tabs/Tabs';
+import { FileContent } from 'components/FileContent/FileContent';
 
 function getTabs({ repoId, branch, path }) {
   return [
     {
-      tab: 'Files',
-      to: `/${repoId}/tree/${branch}/${path}`,
+      tab: 'Details',
+      to: `/${repoId}/blob/${branch}/${path}`,
     },
     {
-      tab: 'Branches',
-      to: `/${repoId}/branches`,
+      tab: 'History',
+      to: `/${repoId}/commits/${branch}/${path}`,
     },
   ];
 }
 
-export const FilesPage = function({ data, repo }) {
+export const FilePage = function({ data, repo }) {
   if (!repo || !data) {
     return <NotFoundPage />;
   }
-  const { branch, path, files = [] } = data || {};
+
+  const { branch, path, file } = data;
   const { repoId, branches = [] } = repo;
   return (
     <>
@@ -42,22 +43,22 @@ export const FilesPage = function({ data, repo }) {
         />
       </div>
       <div className={cnSection({ 'indent-b': 's' }, [cnDivider()])}>
-        <Tabs tabs={getTabs({ repoId, branch, path })} activeTab={'Files'} />
+        <Tabs tabs={getTabs({ repoId, branch, path })} activeTab={'Details'} />
       </div>
-      <div className={cnSection({ 'overflow-x': 'auto' })}>
-        <FileList files={files} path={path} repoId={repoId} branch={branch} />
+      <div className={cnSection({ 'indent-b': 's' })}>
+        <FileContent content={file} filename={path.split('/').pop()} />
       </div>
     </>
   );
 };
 
-FilesPage.propTypes = {
+FilePage.propTypes = {
   data: PropTypes.shape({
     branch: PropTypes.string,
     path: PropTypes.string,
-    files: PropTypes.array,
+    file: PropTypes.string,
   }),
   repo: PropTypes.object,
 };
 
-export default FilesPage;
+export default FilePage;

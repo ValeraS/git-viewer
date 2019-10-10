@@ -6,23 +6,6 @@ export function repoReducer(state, action) {
       return {
         ...state,
         ...action.payload,
-        loading: false,
-        error: null,
-        completed: true,
-      };
-    case ActionTypes.SET_REPO_LOADING:
-      return {
-        ...state,
-        loading: true,
-        error: null,
-        completed: false,
-      };
-    case ActionTypes.SET_REPO_ERROR:
-      return {
-        ...state,
-        loading: false,
-        error: action.payload,
-        completed: false,
       };
     default:
       return state || null;

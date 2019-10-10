@@ -1,6 +1,7 @@
 /* global _dynamicImport */
 
 import { lazyComponentBabel } from 'components/Lazy/Lazy';
+import { prepareState } from 'components/Pages/Files/File@sate';
 
 export const Routes = Object.freeze({
   HOME: 'home',
@@ -25,6 +26,7 @@ export const PAGES = {
         /* webpackChunkName: "page.files" */ 'components/Pages/Files/Files'
       )
     ),
+    preparePageData: prepareState,
   },
   [Routes.NOT_FOUND]: {
     component: lazyComponentBabel(() =>

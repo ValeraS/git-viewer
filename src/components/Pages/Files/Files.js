@@ -7,10 +7,9 @@ import { cnDivider } from 'components/Divider/Divider';
 import { FileHeader } from 'components/FileHeader/FileHeader';
 import { Tabs } from 'components/Tabs/Tabs';
 import { FileList } from 'components/FileList/FileList';
-import { EnsureResources } from 'components/EnsureResources/EnsureResources';
 
 export const FilesPage = function({ data = {}, repo = {} }) {
-  const { branch, path, files = [] } = data;
+  const { branch, path, files = [] } = data || {};
   const { repoId, branches = [] } = repo;
   return (
     <>
@@ -44,15 +43,4 @@ FilesPage.propTypes = {
   repo: PropTypes.object,
 };
 
-FilesPage.prepareState = async function({ url }) {
-  let tree;
-  try {
-    const res = await fetch(`/api/repos/${url}`);
-    tree = await res.json();
-  } catch (err) {
-    console.error(err);
-  }
-  return tree;
-};
-
-export default EnsureResources(FilesPage);
+export default FilesPage;

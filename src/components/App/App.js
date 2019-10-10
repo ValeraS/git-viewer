@@ -1,4 +1,5 @@
 import * as React from 'react';
+import PropTypes from 'prop-types';
 import { cn } from '@bem-react/classname';
 
 import { Switch, Route } from 'react-router';
@@ -14,7 +15,7 @@ import './App.css';
 export const cnApp = cn('App');
 export const registryId = cnApp();
 
-export function App() {
+export function App({ location, ...props }) {
   const { Header, Footer } = useComponentRegistry(registryId);
 
   return (
@@ -25,20 +26,24 @@ export function App() {
       ])}
     >
       <Header className={cnApp('Header')} />
-      <AppMain />
+      <main className={cnApp('Main')}>
+        <Switch location={location}>
+          {Object.keys(PAGES).map(route => {
+            const RouteComponent = routeProps => {
+              const Component = PAGES[route].component;
+              return <Component {...routeProps} {...props} />;
+            };
+            return (
+              <Route key={route} {...PAGES[route]} component={RouteComponent} />
+            );
+          })}
+        </Switch>
+      </main>
       <Footer className={cnApp('Footer')} />
     </div>
   );
 }
 
-function AppMain() {
-  return (
-    <main className={cnApp('Main')}>
-      <Switch>
-        {Object.keys(PAGES).map(route => (
-          <Route key={route} {...PAGES[route]} />
-        ))}
-      </Switch>
-    </main>
-  );
-}
+App.propTypes = {
+  location: PropTypes.object.isRequired,
+};

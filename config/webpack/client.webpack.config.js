@@ -30,7 +30,7 @@ module.exports = env => {
         {
           oneOf: [
             {
-              test: /\.jsx?$/,
+              test: /\.(j|t)sx?$/,
               include: [resolve('src')],
               use: [
                 {
@@ -53,6 +53,7 @@ module.exports = env => {
                           corejs: 3,
                         },
                       ],
+                      '@babel/preset-typescript',
                       '@babel/preset-react',
                     ],
                     plugins: [

@@ -1,6 +1,6 @@
 {
   "root": true,
-  "plugins": ["prettier", "react-hooks"],
+  "plugins": ["prettier", "react-hooks", "@typescript-eslint"],
   "extends": [
     "eslint:recommended",
     "plugin:import/errors",
@@ -22,6 +22,7 @@
   "parserOptions": {
     "ecmaVersion": 2018,
     "sourceType": "module",
+    "project": "./tsconfig.json",
     "ecmaFeatures": {
       "jsx": true
     }
@@ -31,5 +32,30 @@
       "version": "detect"
     },
     "import/resolver": "webpack"
-  }
+  },
+  "overrides": [
+    {
+      "files": ["*.ts"],
+      "parser": "@typescript-eslint/parser",
+      "extends": [
+        "eslint:recommended",
+        "plugin:@typescript-eslint/eslint-recommended",
+        "plugin:@typescript-eslint/recommended",
+        "plugin:@typescript-eslint/recommended-requiring-type-checking",
+        "prettier",
+        "prettier/@typescript-eslint"
+      ],
+      "parserOptions": {
+        "project": "./tsconfig.json",
+        "ecmaFeatures": {
+          "jsx": true
+        }
+      },
+      "settings": {
+        "react": {
+          "version": "detect"
+        }
+      }
+    }
+  ]
 }

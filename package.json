@@ -9,8 +9,9 @@
     "debug": "nodemon --inspect index.js ../",
     "build": "webpack --env.production",
     "serve": "node index.js",
+    "check-types": "tsc",
     "lint": "run-p lint:*",
-    "lint:code": "eslint .",
+    "lint:code": "eslint . --ext .js,.ts",
     "lint:css": "stylelint \"src/**/*.css\"",
     "format": "run-p format:*",
     "format:code": "eslint . --fix",
@@ -23,8 +24,19 @@
     "@babel/plugin-transform-runtime": "^7.6.2",
     "@babel/preset-env": "^7.6.2",
     "@babel/preset-react": "^7.0.0",
+    "@babel/preset-typescript": "^7.6.0",
     "@babel/template": "^7.6.0",
     "@bem-react/eslint-plugin": "^1.0.3",
+    "@types/debug": "^4.1.5",
+    "@types/dotenv": "^6.1.1",
+    "@types/node": "^12.7.12",
+    "@types/react": "^16.9.5",
+    "@types/react-dom": "^16.9.1",
+    "@types/react-router": "^5.1.1",
+    "@types/react-router-dom": "^5.1.0",
+    "@types/rimraf": "^2.0.2",
+    "@typescript-eslint/eslint-plugin": "^2.3.3",
+    "@typescript-eslint/parser": "^2.3.3",
     "babel-loader": "^8.0.6",
     "cache-loader": "^4.1.0",
     "copy-webpack-plugin": "^5.0.4",
@@ -57,6 +69,7 @@
     "stylelint-config-recommended": "^3.0.0",
     "stylelint-order": "^3.1.1",
     "stylelint-prettier": "^1.1.1",
+    "typescript": "^3.6.4",
     "webpack": "^4.41.0",
     "webpack-cli": "^3.3.9",
     "webpack-manifest-plugin": "^2.2.0",
@@ -84,7 +97,7 @@
     "typedi": "^0.8.0"
   },
   "lint-staged": {
-    "*.{js,jsx}": [
+    "*.{js,jsx,ts,tsx}": [
       "eslint --fix",
       "git add"
     ],

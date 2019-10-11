@@ -35,7 +35,7 @@ module.exports = env => {
         {
           oneOf: [
             {
-              test: /\.jsx?$/,
+              test: /\.(jsx?|tsx?)$/,
               include: [path.resolve('src')],
               use: [
                 {
@@ -61,6 +61,7 @@ module.exports = env => {
                           },
                         },
                       ],
+                      '@babel/preset-typescript',
                       '@babel/preset-react',
                     ],
                     plugins: [

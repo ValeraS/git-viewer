@@ -50,10 +50,8 @@ export const EnsureResources = function({ children }) {
     setState({ location, repo, data });
   }
 
-  const memorizedChildren = useCallback(() => children(state), [
-    children,
-    state,
-  ]);
+  // eslint-disable-next-line
+  const memorizedChildren = useCallback(() => children(state), [state]);
   return memorizedChildren();
 };
 

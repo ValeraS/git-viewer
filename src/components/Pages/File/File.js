@@ -27,19 +27,20 @@ export const FilePage = function({ data, repo }) {
     return <NotFoundPage />;
   }
 
-  const { branch, path, file } = data;
+  const { branch, path, file, lastCommit } = data;
   const { repoId, branches = [] } = repo;
   return (
     <>
       <div className={cnSection({ 'indent-b': 's' }, [cnDivider()])}>
-        <FilePath path={path} repo={repoId} branch={branch} />
+        <FilePath path={path} repoId={repoId} branch={branch} />
       </div>
-      <div>
+      <div className={cnSection({ 'indent-b': 's' })}>
         <FileHeader
-          repo={repoId}
+          repoId={repoId}
           branches={branches}
           branch={branch}
           path={path}
+          lastCommit={lastCommit}
         />
       </div>
       <div className={cnSection({ 'indent-b': 's' }, [cnDivider()])}>
@@ -57,6 +58,7 @@ FilePage.propTypes = {
     branch: PropTypes.string,
     path: PropTypes.string,
     file: PropTypes.string,
+    lastCommit: PropTypes.object,
   }),
   repo: PropTypes.object,
 };

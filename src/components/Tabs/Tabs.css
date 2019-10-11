@@ -4,6 +4,6 @@
   margin-right: 32px;
 }
 
-.Tabs-Link {
+.Tabs-Tab_active {
   color: var(--color-gray-dark);
 }

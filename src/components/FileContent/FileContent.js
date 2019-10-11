@@ -14,9 +14,10 @@ export const FileContent = function({
   content,
   filename,
   fileSize = '100 bytes',
+  className,
 }) {
   return (
-    <div className={cnFileContent()}>
+    <div className={cnFileContent(null, [className])}>
       <div
         className={cnFileContent('Head', [cnDivider(), cnTypo({ size: 'm' })])}
       >
@@ -50,4 +51,5 @@ FileContent.propTypes = {
   content: PropTypes.string.isRequired,
   filename: PropTypes.string.isRequired,
   fileSize: PropTypes.string,
+  className: PropTypes.string,
 };

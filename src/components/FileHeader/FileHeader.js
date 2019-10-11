@@ -2,50 +2,46 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { cn } from '@bem-react/classname';
 
-import './FileHeader.css';
 import { cnTypo } from 'components/Typo/Typo';
-import { Dropdown } from 'components/Dropdown/Dropdown';
-import { Popup } from 'components/Popup/Popup';
+import { CommitData } from 'components/CommitData/CommitData';
+import { BranchSelector } from 'components/BranchSelector/BranchSelector';
+
+import './FileHeader.css';
 
 export const cnFileHeader = cn('FileHeader');
 
 export const FileHeader = function({
-  repo,
+  repoId,
   branches,
   branch,
   path,
   className,
+  lastCommit,
 }) {
-  const title = !path ? repo : path.split('/').slice(-1)[0];
-  const branchOptions = branches.map(({ name }) => ({
-    value: name,
-    label: name,
-    to: `/${repo}/tree/${name}/${path}`,
-  }));
+  const title = !path ? repoId : path.split('/').slice(-1)[0];
 
   return (
     <div className={cnFileHeader(null, [className])}>
-      <h1 className={cnFileHeader('Title', [cnTypo({ size: 'xl' })])}>
-        {title}
-      </h1>
-      <Dropdown
-        className={cnTypo({ size: 'xl' })}
-        title={'Branch'}
-        hideTitle={true}
-        value={branch}
-        options={branchOptions}
-        renderContainer={({ className, ...props }) => (
-          <Popup {...props} className={cnTypo({ size: 'm' }, [className])} />
-        )}
+      <div className={cnFileHeader('Line')}>
+        <h1 className={cnFileHeader('Title', [cnTypo({ size: 'xl' })])}>
+          {title}
+        </h1>
+        <BranchSelector {...{ repoId, branches, branch, path }} />
+      </div>
+      <CommitData
+        data={lastCommit}
+        repoId={repoId}
+        className={cnTypo({ size: 'm' })}
       />
     </div>
   );
 };
 
 FileHeader.propTypes = {
-  repo: PropTypes.string,
+  repoId: PropTypes.string,
   branches: PropTypes.array,
   branch: PropTypes.string,
   path: PropTypes.string,
   className: PropTypes.string,
+  lastCommit: PropTypes.object,
 };

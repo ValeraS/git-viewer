@@ -1,4 +1,9 @@
 .Link {
   text-decoration: none;
-  font:inherit;
+  font: inherit;
+  color: inherit;
+}
+
+.Link:hover {
+  color: var(--color-accent);
 }

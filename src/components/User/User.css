@@ -1,0 +1,8 @@
+.User {
+  white-space: nowrap;
+  display: inline-block;
+}
+
+.User::first-letter {
+  color: #ff3029;
+}

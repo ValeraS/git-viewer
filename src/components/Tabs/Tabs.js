@@ -26,15 +26,13 @@ export const Tabs = function({ tabs, activeTab, className }) {
           </div>
         ) : (
           <div
-            className={cnTabs('Tab', [
+            className={cnTabs('Tab', { active: true }, [
               cnTypo({ weight: 'bold' }),
               cnTypo('Caps'),
             ])}
             key={tab}
           >
-            <Link to={to} className={cnTabs('Link')}>
-              {tab}
-            </Link>
+            <Link to={to}>{tab}</Link>
           </div>
         )
       )}

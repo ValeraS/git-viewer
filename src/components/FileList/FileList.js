@@ -6,6 +6,7 @@ import { cnDivider } from 'components/Divider/Divider';
 import { cnTable } from 'components/Table/Table';
 import { Link } from 'components/Link';
 import { CommitHash } from 'components/CommitHash/CommitHash';
+import { User } from 'components/User/User';
 
 import 'components/Table/Table.css';
 
@@ -80,8 +81,10 @@ export const FileList = function({ files, path, repoId, branch, className }) {
               <CommitHash hash={hash} repoId={repoId} maxLength={6} />
             </td>
             <td className={cnTable('Col')}>{subject}</td>
-            <td className={cnTable('Col')}>{committer}</td>
-            <td className={cnTable('Col')}>{date}</td>
+            <td className={cnTable('Col')}>
+              <User user={committer} />
+            </td>
+            <td className={cnTable('Col')}>{new Date(date).toDateString()}</td>
           </tr>
         ))}
       </tbody>

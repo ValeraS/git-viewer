@@ -8,22 +8,22 @@ import './FilePath.css';
 
 export const cnFilePath = cn('FilePath');
 
-export const FilePath = function({ path, repo, branch, className }) {
+export const FilePath = function({ path, repoId, branch, className }) {
   if (!path) {
     return (
       <ul className={cnFilePath(null, [className])}>
-        <li className={cnFilePath('CurrentItem')}>{repo}</li>
+        <li className={cnFilePath('CurrentItem')}>{repoId}</li>
       </ul>
     );
   }
 
-  let currentPath = `/${repo}/tree/${branch}`;
+  let currentPath = `/${repoId}/tree/${branch}`;
   const pathItems = path.split('/');
   return (
     <ul className={cnFilePath(null, [className])}>
       <li className={cnFilePath('Item')}>
         <Link to={currentPath} className={cnFilePath('Link')}>
-          {repo}
+          {repoId}
         </Link>
       </li>
       {pathItems.slice(0, -1).map((name, index) => {
@@ -45,7 +45,7 @@ export const FilePath = function({ path, repo, branch, className }) {
 
 FilePath.propTypes = {
   path: PropTypes.string,
-  repo: PropTypes.string.isRequired,
+  repoId: PropTypes.string.isRequired,
   branch: PropTypes.string.isRequired,
   className: PropTypes.string,
 };

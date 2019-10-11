@@ -111,6 +111,7 @@ RepoService.prototype.tree = async function(repo, urlPath = '') {
   if (pathPrefix && !pathPrefix.endsWith('/')) {
     pathPrefix = pathPrefix + '/';
   }
+  const lastCommit = await this.fileInfo(repo, branch, path);
   const filesInfo = await Promise.all(
     files.map(async ({ filename, ...other }) => {
       const info = await this.fileInfo(
@@ -125,13 +126,18 @@ RepoService.prototype.tree = async function(repo, urlPath = '') {
   return {
     branch,
     path,
+    lastCommit,
     files: filesInfo,
   };
 };
 
 RepoService.prototype.fileInfo = async function(repo, commitHash, path) {
+  const commands = [commitHash, '-1', '--format=%H%n%cN%n%cI%n%s', '--'];
+  if (path) {
+    commands.push(path);
+  }
   const [hash, committer, date, subject] = (await repo
-    .log([commitHash, '-1', '--format=%H%n%cN%n%cI%n%s', '--', path])
+    .log(commands)
     .getOutput()).split('\n');
   return { hash, committer, date, subject };
 };
@@ -144,10 +150,12 @@ RepoService.prototype.blob = async function(repo, urlPath) {
 
   const path = urlPath.substr(branch.length + 1);
 
+  const lastCommit = await this.fileInfo(repo, branch, path);
   const file = await repo.show([`${branch}:${path}`]).getOutput();
   return {
     branch,
     path,
+    lastCommit,
     file,
   };
 };

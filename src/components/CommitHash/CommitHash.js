@@ -1,13 +1,17 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { cn } from '@bem-react/classname';
-import { Link } from 'components/Link/Link';
+import { Link } from 'components/Link';
 
 export const cnCommitHash = cn('CommitHash');
 
 export const CommitHash = function({ repoId, hash, maxLength }) {
   return (
-    <Link to={`/${repoId}/commit/${hash}`} className={cnCommitHash()}>
+    <Link
+      to={`/${repoId}/commit/${hash}`}
+      color="default"
+      className={cnCommitHash()}
+    >
       {maxLength ? hash.substr(0, maxLength) : hash}
     </Link>
   );

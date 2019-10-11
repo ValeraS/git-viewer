@@ -29,3 +29,9 @@
 .Table-Col_nowrap {
   white-space: nowrap;
 }
+
+.Table-ColIcon {
+  width: 1%;
+  padding: 0 0 0 8px;
+  text-align: center;
+}

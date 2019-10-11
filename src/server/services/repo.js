@@ -132,14 +132,14 @@ RepoService.prototype.tree = async function(repo, urlPath = '') {
 };
 
 RepoService.prototype.fileInfo = async function(repo, commitHash, path) {
-  const commands = [commitHash, '-1', '--format=%H%n%cN%n%cI%n%s', '--'];
+  const commands = [commitHash, '-1', '--format=%H%n%cN%n%cI%n%cr%n%s', '--'];
   if (path) {
     commands.push(path);
   }
-  const [hash, committer, date, subject] = (await repo
+  const [hash, committer, date, relativeDate, subject] = (await repo
     .log(commands)
     .getOutput()).split('\n');
-  return { hash, committer, date, subject };
+  return { hash, committer, date, relativeDate, subject };
 };
 
 RepoService.prototype.blob = async function(repo, urlPath) {

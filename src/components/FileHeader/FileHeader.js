@@ -28,11 +28,10 @@ export const FileHeader = function({
         </h1>
         <BranchSelector {...{ repoId, branches, branch, path }} />
       </div>
-      <CommitData
-        data={lastCommit}
-        repoId={repoId}
-        className={cnTypo({ size: 'm' })}
-      />
+      <div className={cnTypo({ size: 'm' })}>
+        {'Last commit '}
+        <CommitData data={lastCommit} repoId={repoId} />
+      </div>
     </div>
   );
 };

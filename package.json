@@ -6,8 +6,9 @@
   "license": "MIT",
   "scripts": {
     "start": "webpack",
-    "build": "webpack --env.production",
     "debug": "nodemon --inspect index.js ../",
+    "build": "webpack --env.production",
+    "serve": "node index.js",
     "lint": "run-p lint:*",
     "lint:code": "eslint .",
     "lint:css": "stylelint \"src/**/*.css\"",
@@ -45,6 +46,7 @@
     "nodemon": "^1.19.3",
     "npm-run-all": "^4.1.5",
     "null-loader": "^3.0.0",
+    "open": "^6.4.0",
     "optimize-css-assets-webpack-plugin": "^5.0.3",
     "postcss-loader": "^3.0.0",
     "postcss-preset-env": "^6.7.0",

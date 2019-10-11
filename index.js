@@ -1,5 +1,6 @@
 const fs = require('fs');
 const path = require('path');
+const open = require('open');
 
 const startServer = require('./dist/main').default;
 
@@ -21,4 +22,7 @@ fs.stat(pathToRepos, (err, stats) => {
   }
 
   startServer(pathToRepos);
+  if (process.argv[3] === '--open') {
+    open(`http://localhost:${process.env.PORT || 3000}`);
+  }
 });

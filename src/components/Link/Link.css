@@ -1,7 +1,7 @@
 .Link {
-  text-decoration: none;
-  font: inherit;
   color: inherit;
+  font: inherit;
+  text-decoration: none;
 }
 
 .Link:hover {

@@ -13,12 +13,8 @@ body {
   box-sizing: border-box;
   width: 100%;
   max-width: 1440px;
-  margin-left: auto;
   margin-right: auto;
-  padding-left: 32px;
+  margin-left: auto;
   padding-right: 32px;
-}
-
-.App-Footer {
-  
+  padding-left: 32px;
 }

@@ -1,6 +1,7 @@
 .FilePath {
   margin: 0;
   padding: 12px 0;
+
   list-style: none;
 }
 
@@ -9,8 +10,8 @@
 }
 
 .FilePath-Item::after {
-  margin-left: 12px;
   margin-right: 12px;
+  margin-left: 12px;
 
   content: '/';
 }

@@ -1,9 +1,10 @@
 .Dropdown {
-  display: inline-block;
   position: relative;
 
-  margin-right: 20px;
+  display: inline-block;
   height: 100%;
+
+  margin-right: 20px;
 }
 
 .Dropdown-Title {
@@ -11,30 +12,35 @@
 }
 
 .Dropdown-Title_hide {
-  visibility: hidden;
   width: 0;
+
+  visibility: hidden;
 }
 
 .Dropdown-Button {
   height: 100%;
-  border: none;
   padding: 0;
-  white-space: nowrap;
-  font: inherit;
-  cursor: pointer;
-  outline: none;
-  background: transparent;
+
   color: inherit;
+  font: inherit;
+  white-space: nowrap;
+
+  background: transparent;
+  border: none;
+  outline: none;
+  cursor: pointer;
 }
 
 .Dropdown-Button::after {
+  position: absolute;
+  top: 50%;
+
   display: inline-block;
   width: 12px;
   height: 12px;
-  position: absolute;
+
   background: url("data:image/svg+xml,%3Csvg width='10' height='6' viewBox='0 0 10 6' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M4.77148 5.46094C4.89844 5.58789 5.07617 5.58789 5.20312 5.46094L8.96094 1.72852C9.08789 1.62695 9.08789 1.42383 8.96094 1.29688L8.45312 0.814453C8.35156 0.6875 8.14844 0.6875 8.02148 0.814453L5 3.81055L1.95312 0.814453C1.82617 0.6875 1.64844 0.6875 1.52148 0.814453L1.01367 1.29688C0.886719 1.42383 0.886719 1.62695 1.01367 1.72852L4.77148 5.46094Z' fill='black'/%3E%3C/svg%3E%0A")
     50% no-repeat;
-  top: 50%;
   transform: translateY(-50%);
 
   content: '';
@@ -46,8 +52,9 @@
 
 .Dropdown-Container {
   position: absolute;
-  min-width: 100%;
   z-index: 1;
+
+  min-width: 100%;
 
   background-color: var(--background);
   box-shadow: 0px 4px 16px rgba(53, 73, 93, 0.2);

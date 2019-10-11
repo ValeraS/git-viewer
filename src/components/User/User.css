@@ -1,6 +1,7 @@
 .User {
-  white-space: nowrap;
   display: inline-block;
+
+  white-space: nowrap;
 }
 
 .User::first-letter {

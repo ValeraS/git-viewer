@@ -13,6 +13,7 @@ import { cnTypo } from 'components/Typo/Typo';
 import { useSelector } from 'react-redux';
 import { getRepos } from 'app-store/selectors/repos';
 import { getRepo } from 'app-store/selectors/repo';
+import { Link } from 'components/Link';
 
 import './Header.css';
 
@@ -29,9 +30,9 @@ export const Header = function Header({ className }) {
   const { Logo } = useComponentRegistry(registryId);
   return (
     <header className={cnHeader(null, [className])}>
-      <div className={cnHeader('Logo')}>
+      <Link to="/" className={cnHeader('Logo')}>
         <Logo />
-      </div>
+      </Link>
       <div className={cnHeader('Content')}>
         <Dropdown
           options={options}

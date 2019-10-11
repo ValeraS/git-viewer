@@ -42,6 +42,7 @@ export const PAGES = {
     preparePageData: prepareFileState,
   },
   [Routes.NOT_FOUND]: {
+    path: '*',
     component: lazyComponentBabel(() =>
       _dynamicImport(
         /* webpackChunkName: "page.notFound" */ 'components/Pages/404/404'

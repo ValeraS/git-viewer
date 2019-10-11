@@ -121,7 +121,10 @@ module.exports = env => {
 
       ...(IS_PRODUCTION ? [new OptimizeCssAssetsPlugin()] : []),
 
-      new CopyPlugin(['static/']),
+      new CopyPlugin([
+        { from: 'static/favicon.ico', to: '../' },
+        { from: 'static/', ignore: 'favicon.ico' },
+      ]),
     ],
   });
 };

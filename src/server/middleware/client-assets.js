@@ -30,7 +30,7 @@ function getFilesForRoute(files, route, ext, fixedFiles = []) {
   if (!files) {
     return filesForRoute;
   }
-  const fileRE = new RegExp(`\\W*page\\.${route}(\\W.*)?.${ext}`);
+  const fileRE = new RegExp(`^(.*\\W)?page\\.${route}(\\W.*)?.${ext}$`);
   for (let filename in files) {
     if (fileRE.test(filename)) {
       filesForRoute.push(files[filename]);

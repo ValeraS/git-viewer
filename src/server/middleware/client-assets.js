@@ -25,6 +25,23 @@ function readManifest() {
   });
 }
 
+function getFilesForRoute(files, route, ext, fixedFiles = []) {
+  const filesForRoute = [];
+  if (!files) {
+    return filesForRoute;
+  }
+  const fileRE = new RegExp(`\\W*page\\.${route}(\\W.*)?.${ext}`);
+  for (let filename in files) {
+    if (fileRE.test(filename)) {
+      filesForRoute.push(files[filename]);
+    }
+  }
+  filesForRoute.push(
+    ...fixedFiles.map(name => files && files[name]).filter(Boolean)
+  );
+  return filesForRoute;
+}
+
 export function clientAssets() {
   let files;
 
@@ -39,14 +56,12 @@ export function clientAssets() {
         throw new Error('Cannot find assets');
       }
 
-      const getFiles = names =>
-        names.map(name => files && files[name]).filter(Boolean);
       const state = res.locals.state;
       const route = getRoute(state.state);
 
       state.files = files;
-      state.css = getFiles([DEFAULT_CSS, `page.${route}.css`]);
-      state.js = getFiles([`page.${route}.js`, DEFAULT_JS]);
+      state.css = getFilesForRoute(files, route, 'css', [DEFAULT_CSS]);
+      state.js = getFilesForRoute(files, route, 'js', [DEFAULT_JS]);
 
       if (process.env.NODE_ENV !== 'production') {
         // eslint-disable-next-line require-atomic-updates

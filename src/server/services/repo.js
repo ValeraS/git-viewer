@@ -199,11 +199,15 @@ RepoService.prototype.addRepo = async function(repoId, repoUrl) {
   const href = repoUrl.replace(/^https?(?=:\/\/)/, 'git');
   this._logger.info(href);
   await this._repoModel.add(repoId, href);
-  this._repoList.push(repoId);
+  if (this._repoList) {
+    this._repoList.push(repoId);
+  }
 };
 
 RepoService.prototype.deleteRepo = async function(repo) {
-  this._repoList = this._repoList.filter(el => el !== repo.repoId);
+  if (this._repoList) {
+    this._repoList = this._repoList.filter(el => el !== repo.repoId);
+  }
   await this._repoModel.delete(repo);
 };
 

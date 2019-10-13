@@ -15,7 +15,8 @@
     "format": "run-p format:*",
     "format:code": "eslint . --fix",
     "format:css": "stylelint \"src/**/*.css\" --fix",
-    "test": "jest"
+    "test:e2e": "hermione tests/e2e",
+    "test:server": "jest"
   },
   "devDependencies": {
     "@babel/core": "^7.6.2",
@@ -25,8 +26,10 @@
     "@babel/preset-react": "^7.0.0",
     "@babel/template": "^7.6.0",
     "@bem-react/eslint-plugin": "^1.0.3",
+    "babel-jest": "^24.9.0",
     "babel-loader": "^8.0.6",
     "cache-loader": "^4.1.0",
+    "chai": "^4.2.0",
     "copy-webpack-plugin": "^5.0.4",
     "core-js": "^3.2.1",
     "cross-env": "^6.0.3",
@@ -39,6 +42,9 @@
     "eslint-plugin-prettier": "^3.1.1",
     "eslint-plugin-react": "^7.15.1",
     "eslint-plugin-react-hooks": "^2.1.1",
+    "hermione": "^2.13.0",
+    "hermione-extend-commands": "file:tests/e2e/hermione-extend-commands",
+    "html-reporter": "^5.0.1",
     "husky": "^3.0.8",
     "jest": "^24.9.0",
     "lint-staged": "^9.4.1",

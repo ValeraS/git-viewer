@@ -15,7 +15,7 @@
     "format": "run-p format:*",
     "format:code": "eslint . --fix",
     "format:css": "stylelint \"src/**/*.css\" --fix",
-    "test:e2e": "hermione tests/e2e",
+    "test:e2e": "cd e2e-test && node index.js",
     "test:server": "jest"
   },
   "devDependencies": {
@@ -43,7 +43,6 @@
     "eslint-plugin-react": "^7.15.1",
     "eslint-plugin-react-hooks": "^2.1.1",
     "hermione": "^2.13.0",
-    "hermione-extend-commands": "file:tests/e2e/hermione-extend-commands",
     "html-reporter": "^5.0.1",
     "husky": "^3.0.8",
     "jest": "^24.9.0",
@@ -57,6 +56,7 @@
     "postcss-loader": "^3.0.0",
     "postcss-preset-env": "^6.7.0",
     "prettier": "^1.18.2",
+    "selenium-standalone": "^6.16.0",
     "stylelint": "^11.1.1",
     "stylelint-config-prettier": "^6.0.0",
     "stylelint-config-rational-order": "^0.1.2",

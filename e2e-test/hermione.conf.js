@@ -1,5 +1,5 @@
 module.exports = {
-  baseUrl: 'https://yandex.ru', //'http://localhost:3000',
+  baseUrl: 'http://localhost:3000',
   gridUrl: 'http://localhost:4444/wd/hub',
   screenshotsDir: 'tests/e2e/screens',
   compositeImage: true,
@@ -13,13 +13,12 @@ module.exports = {
   },
   sets: {
     all: {
-      files: 'tests/e2e/*.js',
+      files: 'test/**/*.spec.js',
     },
   },
   plugins: {
     'html-reporter/hermione': {
-      path: 'tests/e2e/reports',
+      path: 'reports',
     },
-    'extend-commands': true,
   },
 };

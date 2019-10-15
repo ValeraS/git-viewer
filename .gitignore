@@ -6,4 +6,4 @@ dist
 
 .env
 
-tests/**/reports
+e2e-test/**/reports

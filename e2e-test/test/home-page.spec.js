@@ -5,7 +5,7 @@ const { expect } = require('chai');
 const { HomePage } = require('../page-objects/home-page');
 
 describe('Repo selector', () => {
-  it('Repo selector exists on home page', async function() {
+  it('should exists on home page', async function() {
     const homePage = new HomePage(this.browser);
     await homePage.open();
 
@@ -20,7 +20,7 @@ describe('Repo selector', () => {
     expect(menuOptions).to.have.length(3);
   });
 
-  it('Repo selector menu closes on click outside', async function() {
+  it('should close menu on click outside', async function() {
     const homePage = new HomePage(this.browser);
     await homePage.open();
 
@@ -33,7 +33,7 @@ describe('Repo selector', () => {
     expect(menuOptions).to.have.length(0);
   });
 
-  it('Repo selector button text should change after selection', async function() {
+  it('button text should change after selection', async function() {
     const homePage = new HomePage(this.browser);
     await homePage.open();
 
@@ -45,5 +45,19 @@ describe('Repo selector', () => {
 
     repoSelectorButtonText = await homePage.Header.repoSelectorButton.getText();
     expect(repoSelectorButtonText).to.equal('Repository test-repo-1');
+  });
+
+  it('should go to file list page', async function() {
+    const app = new HomePage(this.browser);
+    await app.open();
+
+    await app.Header.repoSelectorButton.click();
+    await app.Header.repoSelector.$('=test-repo-1').click();
+
+    const url = new URL(await this.browser.getUrl());
+    expect(url.pathname).to.equal('/test-repo-1');
+    await app.FileList.waitForExist();
+    await app.FilePath.isExisting();
+    await app.FileHeader.isExisting();
   });
 });

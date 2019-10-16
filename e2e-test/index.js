@@ -17,7 +17,10 @@ seleniumInstall() //make sure selenium is installed
   .then(() => hermione.run('')) // run hermiona e2e tests
   .finally(cleanUpRepos)
   .then(() => process.exit(0))
-  .catch(() => process.exit(1));
+  .catch(err => {
+    console.error(err);
+    process.exit(1);
+  });
 
 function seleniumInstall() {
   return new Promise(resolve => selenium.install({}, resolve));

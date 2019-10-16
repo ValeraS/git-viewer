@@ -7,6 +7,10 @@ class FileList {
     return this._.waitForExist('.FileList', timeout);
   }
 
+  isExisting() {
+    return this.content.isExisting();
+  }
+
   get content() {
     return this._.$('.FileList');
   }

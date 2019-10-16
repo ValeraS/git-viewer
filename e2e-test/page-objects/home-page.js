@@ -3,6 +3,7 @@ const { Header } = require('./header');
 const { FileList } = require('./file-list');
 const { FilePath } = require('./file-path');
 const { FileHeader } = require('./file-header');
+const { FileContent } = require('./file-content');
 
 class HomePage extends Page {
   constructor(browser) {
@@ -11,6 +12,7 @@ class HomePage extends Page {
     this._fileList = new FileList(browser);
     this._filePath = new FilePath(browser);
     this._fileHeader = new FileHeader(browser);
+    this._fileContent = new FileContent(browser);
   }
 
   open(url = '/') {
@@ -30,6 +32,10 @@ class HomePage extends Page {
 
   get FileHeader() {
     return this._fileHeader;
+  }
+
+  get FileContent() {
+    return this._fileContent;
   }
 }
 

@@ -1,0 +1,7 @@
+0000000000000000000000000000000000000000 1d95b7c95e3cea0041225cddb7b96b28b453cba7 ValeraS <ValeraS@users.noreply.github.com> 1570823351 +0300	branch: Created from HEAD
+1d95b7c95e3cea0041225cddb7b96b28b453cba7 69033247a2617724a26c8641e7b76a6ee74e9110 ValeraS <ValeraS@users.noreply.github.com> 1571008324 +0300	commit: fix: check existence of cached list of repos
+69033247a2617724a26c8641e7b76a6ee74e9110 eae6cf82cd6de696a273e59789dbc3bc8cbec0d6 ValeraS <ValeraS@users.noreply.github.com> 1571008607 +0300	commit: add server tests
+eae6cf82cd6de696a273e59789dbc3bc8cbec0d6 7f93089d5e3bcd3a27ec600f55ee54b019852577 ValeraS <ValeraS@users.noreply.github.com> 1571012635 +0300	commit: e2e tests wip
+7f93089d5e3bcd3a27ec600f55ee54b019852577 47a3ba2f6d040dcd87218e56b6588c212b0c6c8d ValeraS <ValeraS@users.noreply.github.com> 1571169076 +0300	rebase finished: refs/heads/tests onto 6e37fb3ed5cf62fd7bdc8045d2a72b8082a50c75
+47a3ba2f6d040dcd87218e56b6588c212b0c6c8d 7348bf3c6753b6d15fb646c3b1b1568a1d48bb32 ValeraS <ValeraS@users.noreply.github.com> 1571180141 +0300	commit: add RepoSelector component
+7348bf3c6753b6d15fb646c3b1b1568a1d48bb32 26509ff51c5a7af8af6b8d2fea2e6664879f49b8 ValeraS <ValeraS@users.noreply.github.com> 1571180602 +0300	commit: Hermione tests scaffolding

@@ -1,0 +1,5 @@
+0000000000000000000000000000000000000000 cabcc8498d285ce0c88a1f64df7be8116359a650 ValeraS <ValeraS@users.noreply.github.com> 1569755615 +0300	branch: Created from HEAD
+cabcc8498d285ce0c88a1f64df7be8116359a650 f97190840dba1c3d13fd582731fadfa9d22418c5 ValeraS <ValeraS@users.noreply.github.com> 1569755842 +0300	commit: add redux-flow
+f97190840dba1c3d13fd582731fadfa9d22418c5 9be36f9b8abfb2b249bf87a1ddac0284d1432577 ValeraS <ValeraS@users.noreply.github.com> 1569778520 +0300	commit: add eslint
+9be36f9b8abfb2b249bf87a1ddac0284d1432577 329cb6152d6e2aacf8317deafba87ce2b4f1deb8 ValeraS <ValeraS@users.noreply.github.com> 1569791317 +0300	commit: add switching between files and branches
+329cb6152d6e2aacf8317deafba87ce2b4f1deb8 23ad5726e95c0464ddfe8026c16a72806f7490ce ValeraS <ValeraS@users.noreply.github.com> 1569878985 +0300	commit: add using of a chain of middleware

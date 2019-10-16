@@ -1,0 +1,9 @@
+0000000000000000000000000000000000000000 ac9d5957eaf2098263282815111790963167d4c6 ValeraS <ValeraS@users.noreply.github.com> 1569050766 +0300	commit (initial): init
+ac9d5957eaf2098263282815111790963167d4c6 53d29f671a9d5fe398d26c2042f91b2391f0ee92 ValeraS <ValeraS@users.noreply.github.com> 1569051144 +0300	commit: Promise polyfill without static methods
+53d29f671a9d5fe398d26c2042f91b2391f0ee92 7eaec0c541abd7e75b511b4bbf9b22cb6ff2c7b6 ValeraS <ValeraS@users.noreply.github.com> 1569118343 +0300	commit: add static methods and finally
+7eaec0c541abd7e75b511b4bbf9b22cb6ff2c7b6 7eaec0c541abd7e75b511b4bbf9b22cb6ff2c7b6 ValeraS <ValeraS@users.noreply.github.com> 1569164603 +0300	checkout: moving from master to tests
+7eaec0c541abd7e75b511b4bbf9b22cb6ff2c7b6 7eaec0c541abd7e75b511b4bbf9b22cb6ff2c7b6 ValeraS <ValeraS@users.noreply.github.com> 1569172226 +0300	checkout: moving from tests to master
+7eaec0c541abd7e75b511b4bbf9b22cb6ff2c7b6 f53e7cf0a98aba71558e65e97b2b8a11d1adcbbe ValeraS <ValeraS@users.noreply.github.com> 1569173454 +0300	commit: fix resolving of pending promise if one of the then action function is omitted
+f53e7cf0a98aba71558e65e97b2b8a11d1adcbbe 9d86060a337eba2a0e21155af69cb56a4e6e32c0 ValeraS <ValeraS@users.noreply.github.com> 1569173569 +0300	commit: reject promise if can not get then method
+9d86060a337eba2a0e21155af69cb56a4e6e32c0 bf535418b21db884a7a3b993d1f84794bd339bce ValeraS <ValeraS@users.noreply.github.com> 1569173628 +0300	commit: add tests
+bf535418b21db884a7a3b993d1f84794bd339bce 67557d54f9e85678bf0de1749abc76a985614c2e ValeraS <ValeraS@users.noreply.github.com> 1569176374 +0300	commit: add done method

@@ -12,7 +12,7 @@ class FileList {
   }
 
   getFileLink(filename) {
-    return this.content.$(`.TableLine .Link=${filename}`);
+    return this.content.$(`.Link=${filename}`);
   }
 }
 

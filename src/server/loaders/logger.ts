@@ -1,7 +1,7 @@
-import debug from 'debug';
+import debug, { Debugger } from 'debug';
 import { logging } from 'server/config';
 
-const debugNamespaces = [];
+const debugNamespaces: string[] = [];
 
 export const error = debug('error');
 error.log = console.error.bind(console);
@@ -22,8 +22,15 @@ if (process.env.NODE_ENV !== 'production') {
 
 debug.enable(debugNamespaces.join(','));
 
-export default {
+const Logger = {
   error,
   info,
   warn,
 };
+
+interface Logger {
+  error: Debugger;
+  info: Debugger;
+  warn: Debugger;
+}
+export default Logger;

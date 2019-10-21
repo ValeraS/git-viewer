@@ -3,10 +3,10 @@ import { port } from 'server/config';
 import loaders from 'server/loaders';
 import { error, info } from 'server/loaders/logger';
 
-export default async pathToRepos => {
+export default (pathToRepos: string) => {
   const app = express();
 
-  await loaders({ app, pathToRepos });
+  loaders({ app, pathToRepos });
 
   app.listen(port, err => {
     if (err) {

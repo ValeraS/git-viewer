@@ -1,11 +1,16 @@
-export function currentRepoHandler(Container) {
-  return async function(req, res, next) {
-    const Logger = Container.get('logger');
+import Container from 'typedi';
+import Logger from 'server/loaders/logger';
+import RepoService from 'server/services/repo';
+import { Request, Response, NextFunction } from 'express';
+
+export function currentRepoHandler(container: typeof Container) {
+  return async function(req: Request, res: Response, next: NextFunction) {
+    const Logger = container.get<Logger>('logger');
     try {
-      const service = Container.get('RepoService');
+      const service = container.get<RepoService>('RepoService');
       const repoId = req.params.repositoryId;
       const repo = await service.getRepo(repoId);
-      if (req.method === 'POST' && !req.param[0]) {
+      if (req.method === 'POST' && !req.params[0]) {
         // add repo request
         if (repo) {
           Logger.info(`Repo ${repoId} exists`);
@@ -21,10 +26,10 @@ export function currentRepoHandler(Container) {
       }
       res.locals.repo = repo;
       res.locals.repoId = repoId;
-      next();
+      return next();
     } catch (err) {
       Logger.error(err);
-      next(err);
+      return next(err);
     }
   };
 }

@@ -1,21 +1,28 @@
 import { matchUrl } from 'server/utils/matchUrl';
 import { PAGES } from 'pages';
+import {
+  PageData,
+  SetPageDataAction,
+  SET_PAGE_DATA,
+  SetPageUrlAction,
+  SET_PAGE_URL,
+} from 'app-store/page-data/types';
 
-export function setPageData(data) {
+export function setPageData(data: PageData): SetPageDataAction {
   return {
-    type: 'SET_PAGE_DATA',
+    type: SET_PAGE_DATA,
     payload: data,
   };
 }
 
-export function setPageUrl(url) {
+export function setPageUrl(url: string): SetPageUrlAction {
   return {
-    type: 'SET_PAGE_URL',
+    type: SET_PAGE_URL,
     payload: url,
   };
 }
 
-export function fetchPageData(path) {
+export function fetchPageData(path: string) {
   const result = matchUrl(path);
   const preparePageData = result && PAGES[result.route].preparePageData;
   return async function(dispatch) {

@@ -1,11 +1,15 @@
 import { readFile } from 'fs';
 import { join } from 'path';
 import { getRoute } from 'app-store/selectors/getRoute';
+import { Routes } from 'pages';
+import { Request, Response, NextFunction } from 'express';
 
 const DEFAULT_CSS = 'main.css';
 const DEFAULT_JS = 'main.js';
 
-function readManifest() {
+type Manifest = Record<string, string>;
+
+function readManifest(): Promise<Manifest> {
   return new Promise((resolve, reject) => {
     readFile(
       join(__dirname, 'asset-manifest.json'),
@@ -25,13 +29,18 @@ function readManifest() {
   });
 }
 
-function getFilesForRoute(files, route, ext, fixedFiles = []) {
-  const filesForRoute = [];
+function getFilesForRoute(
+  files: Manifest,
+  route: Routes,
+  ext: string,
+  fixedFiles: string[] = []
+) {
+  const filesForRoute: string[] = [];
   if (!files) {
     return filesForRoute;
   }
   const fileRE = new RegExp(`^(.*\\W)?page\\.${route}(\\W.*)?.${ext}$`);
-  for (let filename in files) {
+  for (const filename in files) {
     if (fileRE.test(filename)) {
       filesForRoute.push(files[filename]);
     }
@@ -43,9 +52,9 @@ function getFilesForRoute(files, route, ext, fixedFiles = []) {
 }
 
 export function clientAssets() {
-  let files;
+  let files: Manifest | undefined;
 
-  return async (req, res, next) => {
+  return async (req: Request, res: Response, next: NextFunction) => {
     try {
       if (!files) {
         // eslint-disable-next-line require-atomic-updates

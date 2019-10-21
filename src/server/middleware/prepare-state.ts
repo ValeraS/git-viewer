@@ -1,17 +1,18 @@
 import { getData } from 'server/dataSources';
 import { rootReducer } from 'app-store';
 import { matchUrl } from 'server/utils/matchUrl';
+import { Request, Response, NextFunction } from 'express';
 
 export function prepareState() {
-  return async function(req, res, next) {
+  return async function(req: Request, res: Response, next: NextFunction) {
     try {
-      let router = matchUrl(req.url);
+      const router = matchUrl(req.url);
 
       if (!router) {
         return res.status(404).end();
       }
 
-      let state = {
+      const state = {
         ...rootReducer(undefined, { type: 'INIT' }),
         router,
         ...(await getData(router)),

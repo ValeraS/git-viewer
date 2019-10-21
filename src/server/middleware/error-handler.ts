@@ -1,6 +1,14 @@
+import { Request, Response, NextFunction } from 'express';
+
+export type ErrorWithStatus = Error & { status?: number };
+
 export function errorHandler() {
-  // eslint-disable-next-line no-unused-vars
-  return function(err, req, res, next) {
+  return function(
+    err: ErrorWithStatus,
+    req: Request,
+    res: Response,
+    next: NextFunction
+  ) {
     res.status(err.status || 500);
 
     if (process.env.NODE_ENV === 'production') {

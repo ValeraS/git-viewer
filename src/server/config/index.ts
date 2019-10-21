@@ -9,5 +9,5 @@ export const api = {
 };
 
 export const logging = {
-  verbose: process.env.VERBOSE == 1 || true,
+  verbose: process.env.VERBOSE === '1',
 };

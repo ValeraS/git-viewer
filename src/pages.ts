@@ -1,31 +1,33 @@
-/* global _dynamicImport */
-
 import { lazyComponentBabel } from 'components/Lazy/Lazy';
 import { prepareState as prepareFilesState } from 'components/Pages/Files/Files@state';
 import { prepareState as prepareFileState } from 'components/Pages/File/File@state';
+import { RouteProps } from 'react-router';
 
-export const Routes = Object.freeze({
-  HOME: 'home',
-  NOT_FOUND: 'notFound',
-  FILES: 'files',
-  FILE: 'file',
-});
+export enum Routes {
+  HOME = 'home',
+  NOT_FOUND = 'notFound',
+  FILES = 'files',
+  FILE = 'file',
+}
 
-export const PAGES = {
+type prepareDataHandler = (arg: { url: string }) => Promise<unknown>;
+
+export const PAGES: Record<
+  Routes,
+  RouteProps & { preparePageData?: prepareDataHandler }
+> = {
   [Routes.HOME]: {
     exact: true,
     path: '/',
     component: lazyComponentBabel(() =>
-      _dynamicImport(
-        /* webpackChunkName: "page.home" */ 'components/Pages/Home/Home'
-      )
+      import(/* webpackChunkName: "page.home" */ 'components/Pages/Home/Home')
     ),
   },
   [Routes.FILES]: {
     exact: true,
     path: ['/:repoId/tree/:path*', '/:repoId'],
     component: lazyComponentBabel(() =>
-      _dynamicImport(
+      import(
         /* webpackChunkName: "page.files" */ 'components/Pages/Files/Files'
       )
     ),
@@ -35,18 +37,14 @@ export const PAGES = {
     exact: true,
     path: ['/:repoId/blob/:path*'],
     component: lazyComponentBabel(() =>
-      _dynamicImport(
-        /* webpackChunkName: "page.file" */ 'components/Pages/File/File'
-      )
+      import(/* webpackChunkName: "page.file" */ 'components/Pages/File/File')
     ),
     preparePageData: prepareFileState,
   },
   [Routes.NOT_FOUND]: {
     path: '*',
     component: lazyComponentBabel(() =>
-      _dynamicImport(
-        /* webpackChunkName: "page.notFound" */ 'components/Pages/404/404'
-      )
+      import(/* webpackChunkName: "page.notFound" */ 'components/Pages/404/404')
     ),
   },
 };

@@ -1,4 +1,4 @@
-import express from 'express';
+import express, { Express } from 'express';
 import bodyParser from 'body-parser';
 import { join } from 'path';
 import { api } from 'server/config';
@@ -9,10 +9,10 @@ import { renderPage } from 'server/middleware/render-page';
 import { prepareState } from 'server/middleware/prepare-state';
 import { clientAssets } from 'server/middleware/client-assets';
 
-export default ({ app }) => {
+export default ({ app }: { app: Express }) => {
   // Health Check endpoints
-  app.get('/status', (req, res) => res.sendStatus(200));
-  app.head('/status', (req, res) => res.sendStatus(200));
+  app.get('/status', (_, res) => res.sendStatus(200));
+  app.head('/status', (_, res) => res.sendStatus(200));
 
   app.use(express.static(join(__dirname, 'client')));
 

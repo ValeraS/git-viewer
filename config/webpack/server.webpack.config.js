@@ -12,7 +12,7 @@ module.exports = env => {
 
   return merge(defaultConfig(env), {
     name: 'server',
-    entry: path.resolve('src/server/index.js'),
+    entry: path.resolve('src/server/index.ts'),
 
     output: {
       path: path.resolve('dist'),
@@ -35,7 +35,7 @@ module.exports = env => {
         {
           oneOf: [
             {
-              test: /\.(jsx?|tsx?)$/,
+              test: /\.tsx?$/,
               include: [path.resolve('src')],
               use: [
                 {

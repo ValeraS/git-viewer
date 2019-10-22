@@ -10,7 +10,7 @@ module.exports = env => {
     devtool: IS_PRODUCTION ? 'source-map' : 'eval-source-map',
 
     resolve: {
-      extensions: ['.js', '.jsx', '.ts', 'tsx'],
+      extensions: ['.js', '.ts', '.tsx'],
 
       modules: [path.resolve('src'), 'node_modules'],
     },

@@ -16,7 +16,7 @@ module.exports = env => {
 
   return merge(defaultConfig(env), {
     name: 'client',
-    entry: resolve('src/client/index.js'),
+    entry: resolve('src/client/index.ts'),
 
     output: {
       path: resolve('dist/client/assets'),
@@ -30,7 +30,7 @@ module.exports = env => {
         {
           oneOf: [
             {
-              test: /\.(j|t)sx?$/,
+              test: /\.tsx?$/,
               include: [resolve('src')],
               use: [
                 {

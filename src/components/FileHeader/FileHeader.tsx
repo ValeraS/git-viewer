@@ -1,16 +1,26 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import { cn } from '@bem-react/classname';
+import { IClassNameProps } from '@bem-react/core';
 
 import { cnTypo } from 'components/Typo/Typo';
 import { CommitData } from 'components/CommitData/CommitData';
 import { BranchSelector } from 'components/BranchSelector/BranchSelector';
+import { CommitData as ICommitData } from 'components/Pages/Files/Files';
+import { Branch } from 'app-store/repo/types';
 
 import './FileHeader.css';
 
 export const cnFileHeader = cn('FileHeader');
 
-export const FileHeader = function({
+export interface FileHeaderProps extends IClassNameProps {
+  repoId: string;
+  branches: Branch[];
+  branch: string;
+  path: string;
+  lastCommit: ICommitData;
+}
+
+export const FileHeader: React.FC<FileHeaderProps> = function({
   repoId,
   branches,
   branch,
@@ -34,13 +44,4 @@ export const FileHeader = function({
       </div>
     </div>
   );
-};
-
-FileHeader.propTypes = {
-  repoId: PropTypes.string,
-  branches: PropTypes.array,
-  branch: PropTypes.string,
-  path: PropTypes.string,
-  className: PropTypes.string,
-  lastCommit: PropTypes.object,
 };

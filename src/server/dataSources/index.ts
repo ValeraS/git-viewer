@@ -8,6 +8,13 @@ import RepoService from 'server/services/repo';
 import { Repo } from 'server/models/repo';
 import { AppState } from 'app-store';
 
+export function notFoundData(router: RouterEvent, data = {}) {
+  return {
+    router: matchPath(router.url, PAGES[Routes.NOT_FOUND]),
+    ...data,
+  };
+}
+
 export async function getData(router: RouterState) {
   if (!router) {
     throw new Error('Route is not defined');
@@ -47,11 +54,4 @@ export async function getData(router: RouterState) {
     }
   }
   throw new Error(`Cannot find data for route "${router.route}"`);
-}
-
-export function notFoundData(router: RouterEvent, data = {}) {
-  return {
-    router: matchPath(router.url, PAGES[Routes.NOT_FOUND]),
-    ...data,
-  };
 }

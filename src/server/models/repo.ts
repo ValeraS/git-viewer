@@ -5,6 +5,7 @@ import Container from 'typedi';
 import { spawn, ChildProcessWithoutNullStreams } from 'child_process';
 import rimrafNode from 'rimraf';
 import Logger from 'server/loaders/logger';
+import { deferred } from 'server/utils/deferred';
 
 type Process = {
   spawn: typeof spawn;
@@ -246,19 +247,4 @@ export class RepoModel {
     );
     return dirs;
   }
-}
-
-type Deferred<T> = {
-  done: Promise<T>;
-  resolve: (v?: T | PromiseLike<T>) => void;
-  reject: (r: unknown) => void;
-};
-
-function deferred<T>() {
-  const d: Deferred<T> = {} as Deferred<T>;
-  d.done = new Promise<T>((resolve, reject) => {
-    d.resolve = resolve;
-    d.reject = reject;
-  });
-  return d;
 }

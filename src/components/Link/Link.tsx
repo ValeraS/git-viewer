@@ -9,10 +9,14 @@ export const cnLink = cn('Link');
 
 export interface LinkProps extends IClassNameProps {
   to: string;
-  onClick?: React.MouseEventHandler<HTMLAnchorElement>
+  onClick?: React.MouseEventHandler<HTMLAnchorElement>;
 }
 
-export const Link: React.FC<LinkProps> = function({ className, children, ...props }) {
+export const Link: React.FC<LinkProps> = function({
+  className,
+  children,
+  ...props
+}) {
   return (
     <RouteLink {...props} className={cnLink(null, [className])}>
       {children}

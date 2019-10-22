@@ -1,14 +1,18 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import { cn } from '@bem-react/classname';
+import { IClassNameProps, compose } from '@bem-react/core';
 
 import './Footer.css';
 import { cnTypo } from 'components/Typo/Typo';
-import { Link } from 'components/Link';
+import { Link as BaseLink, withLinkExternal } from 'components/Link';
 
 export const cnFooter = cn('Footer');
 
-export const Footer = function({ className }) {
+export interface FooterProps extends IClassNameProps {}
+
+const Link = compose(withLinkExternal)(BaseLink);
+
+export const Footer: React.FC<FooterProps> = function({ className }) {
   return (
     <footer className={cnFooter(null, [className, cnTypo({ size: 'm' })])}>
       <div className={cnFooter('Content')}>
@@ -30,8 +34,4 @@ export const Footer = function({ className }) {
       </div>
     </footer>
   );
-};
-
-Footer.propTypes = {
-  className: PropTypes.string,
 };

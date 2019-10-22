@@ -1,5 +1,4 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 
 import { cnSection } from 'components/Section/Section';
 import { cnDivider } from 'components/Divider/Divider';
@@ -8,8 +7,18 @@ import { FileHeader } from 'components/FileHeader/FileHeader';
 import { NotFoundPage } from '../404/404';
 import { Tabs } from 'components/Tabs/Tabs';
 import { FileContent } from 'components/FileContent/FileContent';
+import { RepoState } from 'app-store/repo/types';
+import { CommitData } from 'components/Pages/Files/Files';
 
-function getTabs({ repoId, branch, path }) {
+function getTabs({
+  repoId,
+  branch,
+  path,
+}: {
+  repoId: string;
+  branch: string;
+  path: string;
+}) {
   return [
     {
       tab: 'Details',
@@ -22,13 +31,26 @@ function getTabs({ repoId, branch, path }) {
   ];
 }
 
-export const FilePage = function({ data, repo }) {
+export interface FilePageData {
+  branch: string;
+  path: string;
+  file: string;
+  lastCommit: CommitData;
+}
+
+export interface FilePageProps {
+  data?: FilePageData;
+  repo?: RepoState;
+}
+
+export const FilePage: React.FC<FilePageProps> = function({ data, repo }) {
   if (!repo || !data) {
     return <NotFoundPage />;
   }
 
   const { branch, path, file, lastCommit } = data;
   const { repoId, branches = [] } = repo;
+  const filename = path.split('/').pop() || '';
   return (
     <>
       <div className={cnSection({ 'indent-b': 's' }, [cnDivider()])}>
@@ -47,20 +69,10 @@ export const FilePage = function({ data, repo }) {
         <Tabs tabs={getTabs({ repoId, branch, path })} activeTab={'Details'} />
       </div>
       <div className={cnSection({ 'indent-b': 's' })}>
-        <FileContent content={file} filename={path.split('/').pop()} />
+        <FileContent content={file} filename={filename} />
       </div>
     </>
   );
-};
-
-FilePage.propTypes = {
-  data: PropTypes.shape({
-    branch: PropTypes.string,
-    path: PropTypes.string,
-    file: PropTypes.string,
-    lastCommit: PropTypes.object,
-  }),
-  repo: PropTypes.object,
 };
 
 export default FilePage;

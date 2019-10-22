@@ -7,8 +7,9 @@ import { createStore, AppState } from 'app-store';
 import { App as DesktopApp } from './App@desktop';
 import { EnsureResources } from 'components/EnsureResources/EnsureResources@client';
 import { ErrorBoundary } from 'components/ErrorBoundary/ErrorBoundary';
+import { PageResources } from './App';
 
-let BaseApp = DesktopApp;
+const BaseApp = DesktopApp;
 
 export interface AppProps {
   state: AppState;
@@ -20,7 +21,7 @@ export const App: React.FC<AppProps> = function App({ state }) {
       <BrowserRouter>
         <ErrorBoundary>
           <EnsureResources>
-            {props => (
+            {(props: PageResources) => (
               <React.Suspense fallback={<h1>Loading...</h1>}>
                 <BaseApp {...props} />
               </React.Suspense>

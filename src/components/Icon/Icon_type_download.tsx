@@ -7,4 +7,7 @@ export interface IconTypeDownloadProps {
   type?: 'download';
 }
 
-export const withIconTypeDownload = withBemMod<IconTypeDownloadProps>(cnIcon(), { type: 'download' });
+export const withIconTypeDownload = withBemMod<IconTypeDownloadProps>(
+  cnIcon(),
+  { type: 'download' }
+);

@@ -12,15 +12,23 @@ import { cnTypo } from 'components/Typo/Typo';
 
 import './App.css';
 import { Location } from 'history';
+import { RepoState } from 'app-store/repo/types';
+import { PageData } from 'app-store/page-data/types';
 
 export const cnApp = cn('App');
 export const registryId = cnApp();
+
+export interface PageResources {
+  location: Location;
+  repo: RepoState;
+  data: PageData;
+}
 
 export interface AppProps {
   location: Location;
 }
 
-export function App({ location, ...props }: AppProps) {
+export function App({ location, ...props }: PageResources) {
   const { Header, Footer } = useComponentRegistry(registryId);
 
   return (

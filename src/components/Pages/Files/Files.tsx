@@ -1,5 +1,4 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 
 import { cnSection } from 'components/Section/Section';
 import { FilePath } from 'components/FilePath/FilePath';
@@ -8,8 +7,17 @@ import { FileHeader } from 'components/FileHeader/FileHeader';
 import { Tabs } from 'components/Tabs/Tabs';
 import { FileList } from 'components/FileList/FileList';
 import { NotFoundPage } from '../404/404';
+import { RepoState } from 'app-store/repo/types';
 
-function getTabs({ repoId, branch, path }) {
+function getTabs({
+  repoId,
+  branch,
+  path,
+}: {
+  repoId: string;
+  branch: string;
+  path: string;
+}) {
   return [
     {
       tab: 'Files',
@@ -22,7 +30,34 @@ function getTabs({ repoId, branch, path }) {
   ];
 }
 
-export const FilesPage = function({ data, repo }) {
+export type FileType = 'tree' | 'blob';
+
+export interface FileInfo {
+  filename: string;
+  type: FileType;
+  subject: string;
+}
+
+export interface CommitData {
+  hash: string;
+  committer: string;
+  relativeDate: string;
+}
+
+export type FileData = FileInfo & CommitData;
+
+export interface FilesPageData {
+  branch: string;
+  path: string;
+  files: FileData[];
+  lastCommit: CommitData;
+}
+export interface FilesPageProps {
+  data: FilesPageData;
+  repo: RepoState;
+}
+
+export const FilesPage: React.FC<FilesPageProps> = function({ data, repo }) {
   if (!repo || !data) {
     return <NotFoundPage />;
   }
@@ -50,16 +85,6 @@ export const FilesPage = function({ data, repo }) {
       </div>
     </>
   );
-};
-
-FilesPage.propTypes = {
-  data: PropTypes.shape({
-    branch: PropTypes.string,
-    path: PropTypes.string,
-    files: PropTypes.array,
-    lastCommit: PropTypes.object,
-  }),
-  repo: PropTypes.object,
 };
 
 export default FilesPage;

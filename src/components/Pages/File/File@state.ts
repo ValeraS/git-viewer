@@ -1,4 +1,6 @@
-export async function prepareState({ url }) {
+import { prepareDataHandler } from 'pages';
+
+export const prepareState: prepareDataHandler = async function({ url }) {
   try {
     const res = await fetch(`/api/repos/${url}`);
     if (res.status < 200 || res.status >= 300) {
@@ -9,4 +11,4 @@ export async function prepareState({ url }) {
     console.error(err);
   }
   return null;
-}
+};

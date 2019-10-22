@@ -1,5 +1,4 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import { cn } from '@bem-react/classname';
 import { cnDivider } from 'components/Divider/Divider';
 import { cnTypo } from 'components/Typo/Typo';
@@ -8,10 +7,10 @@ import {
   withIconTypeDownload,
   withIconTypeBlob,
 } from 'components/Icon';
+import { compose, composeU, IClassNameProps } from '@bem-react/core';
 
 import './FileContent.css';
 import './FileLine.css';
-import { compose, composeU } from '@bem-react/core';
 
 export const cnFileContent = cn('FileContent');
 export const cnFileLine = cn('FileLine');
@@ -20,7 +19,13 @@ const Icon = compose(composeU(withIconTypeBlob, withIconTypeDownload))(
   BaseIcon
 );
 
-export const FileContent = function({
+export interface FileContentProps extends IClassNameProps {
+  content: string;
+  filename: string;
+  fileSize?: string;
+}
+
+export const FileContent: React.FC<FileContentProps> = function({
   content,
   filename,
   fileSize = '(100 bytes)',
@@ -56,11 +61,4 @@ export const FileContent = function({
       </div>
     </div>
   );
-};
-
-FileContent.propTypes = {
-  content: PropTypes.string.isRequired,
-  filename: PropTypes.string.isRequired,
-  fileSize: PropTypes.string,
-  className: PropTypes.string,
 };

@@ -11,10 +11,10 @@
     "serve": "node index.js",
     "check-types": "tsc",
     "lint": "run-p lint:*",
-    "lint:code": "eslint . --ext .js,.ts",
+    "lint:code": "eslint . --ext .ts,.tsx",
     "lint:css": "stylelint \"src/**/*.css\"",
     "format": "run-p format:*",
-    "format:code": "eslint . --fix",
+    "format:code": "eslint . --ext .ts,.tsx --fix",
     "format:css": "stylelint \"src/**/*.css\" --fix",
     "test": "jest"
   },

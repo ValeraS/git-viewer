@@ -12,10 +12,9 @@ export const cnBranchSelector = cn('BranchSelector');
 
 export interface BranchSelectorProps extends IClassNameProps {
   repoId: string;
-  branches: { name: string; }[];
+  branches: { name: string }[];
   branch: string;
   path: string;
-
 }
 
 export const BranchSelector: React.FC<BranchSelectorProps> = function({

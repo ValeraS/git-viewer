@@ -18,7 +18,11 @@ export interface CommitDataProps extends IClassNameProps {
   };
 }
 
-export const CommitData: React.FC<CommitDataProps> = function({ repoId, data, className }) {
+export const CommitData: React.FC<CommitDataProps> = function({
+  repoId,
+  data,
+  className,
+}) {
   const { hash, relativeDate, committer } = data;
   return (
     <div className={cnCommitData(null, [className])}>

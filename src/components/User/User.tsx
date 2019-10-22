@@ -13,4 +13,3 @@ export interface UserProps extends IClassNameProps {
 export const User: React.FC<UserProps> = function({ user, className }) {
   return <span className={cnUser(null, [className])}>{user}</span>;
 };
-

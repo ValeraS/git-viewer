@@ -26,7 +26,7 @@ export function lazyComponent({
   id,
 }: LazyProps): LazyComponentType {
   const LazyComponent = (props: RouteComponentProps<RouterParams>) => {
-    let componentModule = syncLoader();
+    const componentModule = syncLoader();
     let Component:
       | React.ComponentType<RouteComponentProps<RouterParams>>
       | undefined;

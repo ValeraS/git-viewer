@@ -24,7 +24,9 @@ export function setPageUrl(url: string): SetPageUrlAction {
   };
 }
 
-export function fetchPageData(path: string): ThunkAction<Promise<void>, AppState, null, AppTypes> {
+export function fetchPageData(
+  path: string
+): ThunkAction<Promise<void>, AppState, null, AppTypes> {
   const result = matchUrl(path);
   const preparePageData = result && PAGES[result.route].preparePageData;
   return async function(dispatch) {

@@ -1,6 +1,6 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import { cn } from '@bem-react/classname';
+import { IClassNameProps } from '@bem-react/core';
 import { useComponentRegistry } from '@bem-react/di';
 
 import { registryId } from 'components/App/App';
@@ -17,10 +17,12 @@ import { Link } from 'components/Link';
 
 import './Header.css';
 
-const cnHeader = cn('Header');
+export const cnHeader = cn('Header');
 
-export const Header = function Header({ className }) {
-  const repos = useSelector(getRepos);
+export interface HeaderProps extends IClassNameProps {}
+
+export const Header: React.FC<HeaderProps> = function Header({ className }) {
+  const repos = useSelector(getRepos) || [];
   const { repoId } = useSelector(getRepo) || {};
   const options = repos.map(repoId => ({
     value: repoId,
@@ -44,8 +46,4 @@ export const Header = function Header({ className }) {
       </div>
     </header>
   );
-};
-
-Header.propTypes = {
-  className: PropTypes.string,
 };

@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect, MouseEventHandler } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import { cn } from '@bem-react/classname';
 import { IClassNameProps } from '@bem-react/core';
 
@@ -17,15 +17,14 @@ export interface Option {
 export interface DropdownMenuProps extends IClassNameProps {
   options: Option[];
   currentValue?: string;
-  onSelect?: (v?: string) => void;
-
+  onSelect?: (v: string) => void;
 }
 
 export interface DropdownProps extends IClassNameProps {
   title: string;
-  hideTitle: boolean;
-  value: string;
-  defaultValue: string;
+  hideTitle?: boolean;
+  value?: string;
+  defaultValue?: string;
   options: Option[];
   onChange?: (v: string) => void;
   renderContainer: React.FC<DropdownMenuProps>;
@@ -43,22 +42,28 @@ export const Dropdown: React.FC<DropdownProps> = function({
 }) {
   const [isOpen, setOpen] = useState(false);
   const [currentValue, setCurrentValue] = useState(defaultValue);
-  const buttonRef = useRef<HTMLButtonElement>();
+  const buttonRef = useRef<HTMLButtonElement>(null);
 
   if (typeof value !== 'undefined' && currentValue !== value) {
     setCurrentValue(value);
   }
 
   const onClick = () => setOpen(isOpen => !isOpen);
-  const onSelect = selectedOption => {
+  const onSelect = (selectedOption: string) => {
     setCurrentValue(selectedOption);
     onChange && onChange(selectedOption);
   };
 
   useEffect(() => {
-    function onClickOutside(e) {
-      if (isOpen && !buttonRef.current.contains(e.target)) {
-        setOpen(isOpen => !isOpen);
+    function onClickOutside(e: MouseEvent) {
+      if (e.currentTarget instanceof HTMLElement) {
+        if (
+          isOpen &&
+          buttonRef.current &&
+          !buttonRef.current.contains(e.currentTarget)
+        ) {
+          setOpen(isOpen => !isOpen);
+        }
       }
     }
     window.addEventListener('click', onClickOutside);

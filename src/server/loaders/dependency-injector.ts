@@ -4,9 +4,6 @@ import RepoService from 'server/services/repo';
 import { RepoModel, Repo, GitRunner } from 'server/models/repo';
 import * as ChildProcess from 'child_process';
 
-type ConstructorWithNoParams<T> = {
-  new (c: typeof Container): T;
-};
 type ConstructorWithOneParams<T, U> = {
   new (c: typeof Container, arg1: U): T;
 };
@@ -15,9 +12,8 @@ type ConstructorWithTwoParams<T, U, V> = {
 };
 
 type Constructor<T, U, V> =
-  // | ConstructorWithNoParams<T>
-  // | ConstructorWithOneParams<T, U>
-   ConstructorWithTwoParams<T, U, V>;
+  | ConstructorWithOneParams<T, U>
+  | ConstructorWithTwoParams<T, U, V>;
 
 type RestParamTypes<T, V> = T extends {
   new (c: typeof Container, ...args: infer U): V;
@@ -25,11 +21,20 @@ type RestParamTypes<T, V> = T extends {
   ? U
   : never;
 
+function containerWrapper<T, U>(
+  classFunction: ConstructorWithOneParams<T, U>,
+  container: typeof Container
+): (arg: U) => T;
+function containerWrapper<T, U, V>(
+  classFunction: ConstructorWithTwoParams<T, U, V>,
+  container: typeof Container
+): (arg1: U, arg2: V) => T;
 function containerWrapper<T, U, V, S extends Constructor<T, U, V>>(
   classFunction: S,
   container: typeof Container
 ) {
-  return (...args: RestParamTypes<S, T>) => new classFunction(container, ...args);
+  return (...args: RestParamTypes<S, T>) =>
+    new classFunction(container, ...args);
 }
 
 export default ({ pathToRepos }: { pathToRepos: string }) => {

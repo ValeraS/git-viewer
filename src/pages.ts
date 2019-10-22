@@ -11,7 +11,7 @@ export enum Routes {
   FILE = 'file',
 }
 
-type prepareDataHandler = (arg: { url: string }) => Promise<PageData>;
+export type prepareDataHandler = (arg: { url: string }) => Promise<PageData>;
 
 export const PAGES: Record<
   Routes,

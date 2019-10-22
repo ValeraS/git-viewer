@@ -5,7 +5,7 @@ import { Request, Response, NextFunction } from 'express';
 
 export function currentRepoHandler(container: typeof Container) {
   return async function(req: Request, res: Response, next: NextFunction) {
-    const Logger = container.get<Logger>('logger');
+    const logger = container.get<Logger>('logger');
     try {
       const service = container.get<RepoService>('RepoService');
       const repoId = req.params.repositoryId;
@@ -13,13 +13,13 @@ export function currentRepoHandler(container: typeof Container) {
       if (req.method === 'POST' && !req.params[0]) {
         // add repo request
         if (repo) {
-          Logger.info(`Repo ${repoId} exists`);
+          logger.info(`Repo ${repoId} exists`);
           return res
             .status(400)
             .json({ errors: { message: `Repo ${repoId} exists` } });
         }
       } else if (!repo) {
-        Logger.info(`Repo ${repoId} does not exist`);
+        logger.info(`Repo ${repoId} does not exist`);
         return res
           .status(404)
           .json({ errors: { message: `Repo ${repoId} does not exist` } });
@@ -28,7 +28,7 @@ export function currentRepoHandler(container: typeof Container) {
       res.locals.repoId = repoId;
       return next();
     } catch (err) {
-      Logger.error(err);
+      logger.error(err);
       return next(err);
     }
   };

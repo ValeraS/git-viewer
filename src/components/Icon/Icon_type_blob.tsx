@@ -7,4 +7,6 @@ export interface IconTypeBlobProps {
   type?: 'blob';
 }
 
-export const withIconTypeBlob = withBemMod<IconTypeBlobProps>(cnIcon(), { type: 'blob' });
+export const withIconTypeBlob = withBemMod<IconTypeBlobProps>(cnIcon(), {
+  type: 'blob',
+});

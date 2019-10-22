@@ -4,7 +4,7 @@ import { withBemMod } from '@bem-react/core';
 import { cnLink, LinkProps } from './';
 
 export interface LinkExternalProps {
-  external?: 'true';
+  external?: true;
 }
 
 export const withLinkExternal = withBemMod<LinkExternalProps, LinkProps>(

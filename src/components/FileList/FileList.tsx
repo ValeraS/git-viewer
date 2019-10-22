@@ -1,7 +1,6 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import { cn } from '@bem-react/classname';
-import { compose, composeU } from '@bem-react/core';
+import { compose, composeU, IClassNameProps } from '@bem-react/core';
 
 import { cnTypo } from 'components/Typo/Typo';
 import { cnDivider } from 'components/Divider/Divider';
@@ -9,28 +8,48 @@ import { cnTable } from 'components/Table/Table';
 import { Link } from 'components/Link';
 import { CommitHash } from 'components/CommitHash/CommitHash';
 import { User } from 'components/User/User';
-import {
-  Icon as BaseIcon,
-  withIconTypeBlob,
-  withIconTypeTree,
-} from 'components/Icon';
+import { Icon, withIconTypeBlob, withIconTypeTree } from 'components/Icon';
+import { FileData } from 'components/Pages/Files/Files';
 
 import 'components/Table/Table.css';
 
 export const cnFileList = cn('FileList');
 export const cnFileIcon = cn('FileIcon');
 
-const FileIcon = compose(composeU(withIconTypeBlob, withIconTypeTree))(
-  BaseIcon
-);
+const FileIcon = compose(composeU(withIconTypeBlob, withIconTypeTree))(Icon);
 
-function makeSlug({ type, filename, path, repoId, branch }) {
+function makeSlug({
+  type,
+  filename,
+  path,
+  repoId,
+  branch,
+}: {
+  type: string;
+  filename: string;
+  path: string;
+  repoId: string;
+  branch: string;
+}) {
   return `/${repoId}/${type}/${branch}/${path}/${filename}`
     .replace(/\/\//g, '/')
     .replace(/\/$/, '');
 }
 
-export const FileList = function({ files, path, repoId, branch, className }) {
+export interface FileListProps extends IClassNameProps {
+  files: FileData[];
+  path: string;
+  repoId: string;
+  branch: string;
+}
+
+export const FileList: React.FC<FileListProps> = function({
+  files,
+  path,
+  repoId,
+  branch,
+  className,
+}) {
   return (
     <table
       className={cnFileList(null, [
@@ -98,12 +117,4 @@ export const FileList = function({ files, path, repoId, branch, className }) {
       </tbody>
     </table>
   );
-};
-
-FileList.propTypes = {
-  files: PropTypes.array.isRequired,
-  className: PropTypes.string,
-  path: PropTypes.string,
-  repoId: PropTypes.string.isRequired,
-  branch: PropTypes.string.isRequired,
 };

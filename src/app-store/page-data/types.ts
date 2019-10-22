@@ -13,9 +13,6 @@ export interface SetPageUrlAction {
 
 export type PageData = {} | null;
 
-export type PageState =
-  | { data?: PageData; url?: string }
-  | undefined
-  | null;
+export type PageState = { data?: PageData; url?: string } | undefined | null;
 
 export type PageActionTypes = SetPageDataAction | SetPageUrlAction;

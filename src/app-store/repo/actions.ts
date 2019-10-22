@@ -2,6 +2,13 @@ import { SET_REPO_STATE, RepoState, SetRepoAction } from 'app-store/repo/types';
 import { ThunkAction } from 'redux-thunk';
 import { AppState, AppTypes } from 'app-store';
 
+export function setRepoState(data: RepoState): SetRepoAction {
+  return {
+    type: SET_REPO_STATE,
+    payload: data,
+  };
+}
+
 export function fetchRepo(
   repoId: string
 ): ThunkAction<Promise<void>, AppState, null, AppTypes> {
@@ -21,12 +28,5 @@ export function fetchRepo(
       console.error(err);
       dispatch(setRepoState(null));
     }
-  };
-}
-
-export function setRepoState(data: RepoState): SetRepoAction {
-  return {
-    type: SET_REPO_STATE,
-    payload: data,
   };
 }

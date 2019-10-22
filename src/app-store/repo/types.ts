@@ -7,10 +7,12 @@ export interface SetRepoAction {
 
 export interface Repo {
   repoId: string;
-  branches: {
-    name: string;
-    active: boolean;
-  }[];
+  branches: Branch[];
+}
+
+export interface Branch {
+  name: string;
+  active: boolean;
 }
 
 export type RepoState = Repo | undefined | null;

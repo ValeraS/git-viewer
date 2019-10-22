@@ -1,6 +1,6 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import { cn } from '@bem-react/classname';
+import { IClassNameProps } from '@bem-react/core';
 
 import { Link } from 'components/Link/Link';
 
@@ -8,7 +8,18 @@ import './FilePath.css';
 
 export const cnFilePath = cn('FilePath');
 
-export const FilePath = function({ path, repoId, branch, className }) {
+export interface FilePathProps extends IClassNameProps {
+  path: string;
+  repoId: string;
+  branch: string;
+}
+
+export const FilePath: React.FC<FilePathProps> = function({
+  path,
+  repoId,
+  branch,
+  className,
+}) {
   if (!path) {
     return (
       <ul className={cnFilePath(null, [className])}>
@@ -41,11 +52,4 @@ export const FilePath = function({ path, repoId, branch, className }) {
       </li>
     </ul>
   );
-};
-
-FilePath.propTypes = {
-  path: PropTypes.string,
-  repoId: PropTypes.string.isRequired,
-  branch: PropTypes.string.isRequired,
-  className: PropTypes.string,
 };

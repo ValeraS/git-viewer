@@ -4,9 +4,42 @@ import { currentRepoHandler } from 'server/api/middleware/current-repo-handler';
 import RepoService, { RepoServiceStream } from 'server/services/repo';
 import Logger from 'server/loaders/logger';
 
-/**
- * @param {Router} app
- */
+type Handler<T> = (req: Request, res: Response) => Promise<T>;
+const routeJSONHandler = <T>(handler: Handler<T>) => async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
+  const Logger = Container.get<Logger>('logger');
+  try {
+    const result = await handler(req, res);
+    res.json(result);
+  } catch (err) {
+    Logger.info(`Error on route ${req.method} ${req.url}: %o`, err);
+    next(err);
+  }
+};
+
+const routeStreamHandler = (handler: Handler<RepoServiceStream>) => async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
+  const Logger = Container.get<Logger>('logger');
+  try {
+    const task = await handler(req, res);
+    task.stream.pipe(
+      res,
+      { end: false }
+    );
+    await task.done;
+    res.end();
+  } catch (err) {
+    Logger.info(`Error on route ${req.method} ${req.url}: %o`, err);
+    next(err);
+  }
+};
+
 export default (app: Router) => {
   const reposRoute = Router();
   app.use('/repos', reposRoute);
@@ -79,20 +112,20 @@ export default (app: Router) => {
   );
 
   route.delete('/', async (req: Request, res: Response, next: NextFunction) => {
-    const Logger = Container.get<Logger>('logger');
+    const logger = Container.get<Logger>('logger');
     try {
       await Container.get<RepoService>('RepoService').deleteRepo(
         res.locals.repo
       );
       res.status(200).end();
     } catch (err) {
-      Logger.info(`Error on route ${req.method} ${req.url}: %o`, err);
+      logger.info(`Error on route ${req.method} ${req.url}: %o`, err);
       next(err);
     }
   });
 
   route.post('/', async (req: Request, res: Response, next: NextFunction) => {
-    const Logger = Container.get<Logger>('logger');
+    const logger = Container.get<Logger>('logger');
     try {
       const { url = '' } = req.body;
       await Container.get<RepoService>('RepoService').addRepo(
@@ -101,46 +134,10 @@ export default (app: Router) => {
       );
       res.status(201).end();
     } catch (err) {
-      Logger.info(`Error on route ${req.method} ${req.url}: %o`, err);
+      logger.info(`Error on route ${req.method} ${req.url}: %o`, err);
       next(err);
     }
   });
 
   return route;
-};
-
-// Helpers
-
-type Handler<T> = (req: Request, res: Response) => Promise<T>;
-const routeJSONHandler = <T>(handler: Handler<T>) => async (
-  req: Request,
-  res: Response,
-  next: NextFunction
-) => {
-  const Logger = Container.get<Logger>('logger');
-  try {
-    const result = await handler(req, res);
-    res.json(result);
-  } catch (err) {
-    Logger.info(`Error on route ${req.method} ${req.url}: %o`, err);
-    next(err);
-  }
-};
-
-const routeStreamHandler = (
-  handler: Handler<RepoServiceStream>
-) => async (req: Request, res: Response, next: NextFunction) => {
-  const Logger = Container.get<Logger>('logger');
-  try {
-    const task = await handler(req, res);
-    task.stream.pipe(
-      res,
-      { end: false }
-    );
-    await task.done;
-    res.end();
-  } catch (err) {
-    Logger.info(`Error on route ${req.method} ${req.url}: %o`, err);
-    next(err);
-  }
 };

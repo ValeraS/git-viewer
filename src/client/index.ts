@@ -7,7 +7,7 @@ import { AppState } from 'app-store';
 
 declare global {
   interface Window {
-      __PRELOADED_STATE__: AppState;
+    __PRELOADED_STATE__: AppState;
   }
 }
 
@@ -15,13 +15,20 @@ const state = window.__PRELOADED_STATE__;
 
 delete window.__PRELOADED_STATE__;
 
-document.addEventListener('DOMContentLoaded', async () => {
+async function mountApp() {
   // Load module
-  let route = getRoute(state);
+  const route = getRoute(state);
 
-  if (route && PAGES[route] && PAGES[route].component) {
-    await PAGES[route].component.load();
+  if (route && PAGES[route]) {
+    const component = PAGES[route].component;
+    if (component) {
+      await component.load();
+    }
   }
 
   hydrate(createElement(App, { state }), document.getElementById('root'));
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+  mountApp();
 });

@@ -1,5 +1,4 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 
 import { Provider } from 'react-redux';
 import { createStore } from 'app-store';
@@ -11,13 +10,17 @@ import { EnsureResources } from 'components/EnsureResources/EnsureResurces@serve
 import { ErrorBoundary } from 'components/ErrorBoundary/ErrorBoundary';
 
 import htmlEscapeJson from 'htmlescape';
+import { PageResources } from './App';
 
 export interface AppProps {
   state: ExpressState;
   url: string;
 }
-export const App: React.FC<AppProps> = function App({ url, state: { state, js, css } }) {
-  let store = createStore(state);
+export const App: React.FC<AppProps> = function App({
+  url,
+  state: { state, js, css },
+}) {
+  const store = createStore(state);
 
   return (
     <Provider store={store}>
@@ -39,7 +42,7 @@ export const App: React.FC<AppProps> = function App({ url, state: { state, js, c
             <div id="root">
               <ErrorBoundary>
                 <EnsureResources>
-                  {props => <BaseApp {...props} />}
+                  {(props: PageResources) => <BaseApp {...props} />}
                 </EnsureResources>
               </ErrorBoundary>
             </div>
@@ -60,13 +63,4 @@ export const App: React.FC<AppProps> = function App({ url, state: { state, js, c
       </StaticRouter>
     </Provider>
   );
-};
-
-App.propTypes = {
-  url: PropTypes.string.isRequired,
-  state: PropTypes.shape({
-    state: PropTypes.object,
-    css: PropTypes.array,
-    js: PropTypes.array,
-  }),
 };

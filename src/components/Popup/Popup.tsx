@@ -15,13 +15,17 @@ export interface PopupProps extends IClassNameProps {
     to: string;
   }[];
   currentValue?: string;
-  onSelect?: (v?: string) => void;
+  onSelect?: (v: string) => void;
 }
 
-export const Popup:React.FC<PopupProps>  = function({ className, options, onSelect }) {
+export const Popup: React.FC<PopupProps> = function({
+  className,
+  options,
+  onSelect,
+}) {
   const onClick: MouseEventHandler<HTMLAnchorElement> = e => {
     const selectedValue = e.currentTarget.dataset.value;
-    onSelect && onSelect(selectedValue);
+    selectedValue && onSelect && onSelect(selectedValue);
   };
   return (
     <ul className={cnPopup(null, [className])}>
@@ -40,4 +44,3 @@ export const Popup:React.FC<PopupProps>  = function({ className, options, onSele
     </ul>
   );
 };
-

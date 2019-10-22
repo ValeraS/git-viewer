@@ -1,4 +1,4 @@
-import { lazyComponentBabel } from 'components/Lazy/Lazy';
+import { lazyComponentBabel, LazyComponentType } from 'components/Lazy/Lazy';
 import { prepareState as prepareFilesState } from 'components/Pages/Files/Files@state';
 import { prepareState as prepareFileState } from 'components/Pages/File/File@state';
 import { RouteProps } from 'react-router';
@@ -15,7 +15,9 @@ export type prepareDataHandler = (arg: { url: string }) => Promise<PageData>;
 
 export const PAGES: Record<
   Routes,
-  RouteProps & { preparePageData?: prepareDataHandler }
+  RouteProps & { preparePageData?: prepareDataHandler } & {
+    component: LazyComponentType;
+  }
 > = {
   [Routes.HOME]: {
     exact: true,

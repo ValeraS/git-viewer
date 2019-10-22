@@ -9,6 +9,8 @@ import { Tabs } from 'components/Tabs/Tabs';
 import { FileContent } from 'components/FileContent/FileContent';
 import { RepoState } from 'app-store/repo/types';
 import { CommitData } from 'components/Pages/Files/Files';
+import { RouterParams } from 'app-store/router/types';
+import { RouteComponentProps } from 'react-router';
 
 function getTabs({
   repoId,
@@ -43,7 +45,9 @@ export interface FilePageProps {
   repo?: RepoState;
 }
 
-export const FilePage: React.FC<FilePageProps> = function({ data, repo }) {
+export const FilePage: React.FC<
+  FilePageProps & RouteComponentProps<RouterParams>
+> = function({ data, repo }) {
   if (!repo || !data) {
     return <NotFoundPage />;
   }

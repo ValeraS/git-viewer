@@ -4,7 +4,7 @@ import { AppState, AppTypes } from 'app-store';
 
 export function fetchRepo(
   repoId: string
-): ThunkAction<Promise<void>, AppState, string, AppTypes> {
+): ThunkAction<Promise<void>, AppState, null, AppTypes> {
   return async function(dispatch) {
     if (!repoId) {
       dispatch(setRepoState(null));

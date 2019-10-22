@@ -1,6 +1,6 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import { cn } from '@bem-react/classname';
+import { IClassNameProps } from '@bem-react/core';
 
 import './Tabs.css';
 import { cnTypo } from 'components/Typo/Typo';
@@ -9,7 +9,19 @@ import { Link } from 'components/Link/Link';
 
 export const cnTabs = cn('Tabs');
 
-export const Tabs = function({ tabs, activeTab, className }) {
+export interface TabsProps extends IClassNameProps {
+  tabs: {
+    tab: string;
+    to: string;
+  }[];
+  activeTab: string;
+}
+
+export const Tabs: React.FC<TabsProps> = function({
+  tabs,
+  activeTab,
+  className,
+}) {
   return (
     <div className={cnTabs(null, [className])}>
       {tabs.map(({ tab, to }) =>
@@ -38,15 +50,4 @@ export const Tabs = function({ tabs, activeTab, className }) {
       )}
     </div>
   );
-};
-
-Tabs.propTypes = {
-  tabs: PropTypes.arrayOf(
-    PropTypes.shape({
-      tab: PropTypes.string,
-      to: PropTypes.string,
-    })
-  ).isRequired,
-  activeTab: PropTypes.string,
-  className: PropTypes.any,
 };

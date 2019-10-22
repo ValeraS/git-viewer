@@ -1,18 +1,20 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 
 import { BrowserRouter } from 'react-router-dom';
 
 import { Provider } from 'react-redux';
-import { createStore } from 'app-store';
+import { createStore, AppState } from 'app-store';
 import { App as DesktopApp } from './App@desktop';
 import { EnsureResources } from 'components/EnsureResources/EnsureResources@client';
 import { ErrorBoundary } from 'components/ErrorBoundary/ErrorBoundary';
 
-let BaseApp;
-BaseApp = DesktopApp;
+let BaseApp = DesktopApp;
 
-export const App = function App({ state }) {
+export interface AppProps {
+  state: AppState;
+}
+
+export const App: React.FC<AppProps> = function App({ state }) {
   return (
     <Provider store={createStore(state)}>
       <BrowserRouter>
@@ -28,8 +30,4 @@ export const App = function App({ state }) {
       </BrowserRouter>
     </Provider>
   );
-};
-
-App.propTypes = {
-  state: PropTypes.object,
 };

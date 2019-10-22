@@ -54,7 +54,7 @@ function getFilesForRoute(
 export function clientAssets() {
   let files: Manifest | undefined;
 
-  return async (req: Request, res: Response, next: NextFunction) => {
+  return async (_req: Request, res: Response, next: NextFunction) => {
     try {
       if (!files) {
         // eslint-disable-next-line require-atomic-updates

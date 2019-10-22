@@ -1,15 +1,26 @@
-import React from 'react';
-import PropTypes from 'prop-types';
+import React, { MouseEventHandler } from 'react';
 import { cn } from '@bem-react/classname';
+import { IClassNameProps } from '@bem-react/core';
+
 import { Link } from 'components/Link';
 
 import './Popup.css';
 
 export const cnPopup = cn('Popup');
 
-export const Popup = function({ className, options, onSelect }) {
-  const onClick = e => {
-    const selectedValue = e.target.dataset.value;
+export interface PopupProps extends IClassNameProps {
+  options: {
+    value: string;
+    label: string;
+    to: string;
+  }[];
+  currentValue?: string;
+  onSelect?: (v?: string) => void;
+}
+
+export const Popup:React.FC<PopupProps>  = function({ className, options, onSelect }) {
+  const onClick: MouseEventHandler<HTMLAnchorElement> = e => {
+    const selectedValue = e.currentTarget.dataset.value;
     onSelect && onSelect(selectedValue);
   };
   return (
@@ -30,15 +41,3 @@ export const Popup = function({ className, options, onSelect }) {
   );
 };
 
-Popup.propTypes = {
-  className: PropTypes.string,
-  options: PropTypes.arrayOf(
-    PropTypes.shape({
-      value: PropTypes.string,
-      label: PropTypes.string,
-      to: PropTypes.string,
-    })
-  ),
-  currentValue: PropTypes.string,
-  onSelect: PropTypes.func,
-};

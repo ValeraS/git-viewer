@@ -47,7 +47,7 @@ export default (app: Router) => {
 
   route.get(
     '/',
-    routeJSONHandler((req: Request, res: Response) =>
+    routeJSONHandler((_req: Request, res: Response) =>
       Container.get<RepoService>('RepoService').tree(res.locals.repo)
     )
   );
@@ -73,7 +73,7 @@ export default (app: Router) => {
 
   route.get(
     '/branches',
-    routeJSONHandler((req: Request, res: Response) =>
+    routeJSONHandler((_req: Request, res: Response) =>
       Container.get<RepoService>('RepoService').branches(res.locals.repo)
     )
   );
@@ -128,7 +128,7 @@ const routeJSONHandler = <T>(handler: Handler<T>) => async (
 };
 
 const routeStreamHandler = (
-  handler: Handler<Promise<RepoServiceStream>>
+  handler: Handler<RepoServiceStream>
 ) => async (req: Request, res: Response, next: NextFunction) => {
   const Logger = Container.get<Logger>('logger');
   try {

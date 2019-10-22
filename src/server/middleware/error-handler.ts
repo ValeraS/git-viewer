@@ -5,9 +5,9 @@ export type ErrorWithStatus = Error & { status?: number };
 export function errorHandler() {
   return function(
     err: ErrorWithStatus,
-    req: Request,
+    _req: Request,
     res: Response,
-    next: NextFunction
+    _next: NextFunction
   ) {
     res.status(err.status || 500);
 

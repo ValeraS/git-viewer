@@ -1,15 +1,12 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import { cn } from '@bem-react/classname';
+import { IClassNameProps } from '@bem-react/core';
 
 import './Icon.css';
 
+export interface IconProps extends IClassNameProps {}
 export const cnIcon = cn('Icon');
 
-export const Icon = function({ className }) {
+export const Icon: React.FC<IClassNameProps> = function({ className }) {
   return <span className={cnIcon(null, [className])} />;
-};
-
-Icon.propTypes = {
-  className: PropTypes.string,
 };

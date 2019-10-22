@@ -1,9 +1,13 @@
 import React from 'react';
 import { withBemMod } from '@bem-react/core';
 
-import { cnLink } from './Link';
+import { cnLink, LinkProps } from './';
 
-export const withLinkExternal = withBemMod(
+export interface LinkExternalProps {
+  external?: 'true';
+}
+
+export const withLinkExternal = withBemMod<LinkExternalProps, LinkProps>(
   cnLink(),
   { external: true },
   () => ({ to, className, children }) => (

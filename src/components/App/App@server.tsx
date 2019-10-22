@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 
 import { Provider } from 'react-redux';
 import { createStore } from 'app-store';
+import { ExpressState } from 'server/schema/express-state';
 import { App as BaseApp } from './App@desktop';
 import { StaticRouter } from 'react-router';
 
@@ -11,7 +12,11 @@ import { ErrorBoundary } from 'components/ErrorBoundary/ErrorBoundary';
 
 import htmlEscapeJson from 'htmlescape';
 
-export const App = function App({ url, state: { state, js, css } }) {
+export interface AppProps {
+  state: ExpressState;
+  url: string;
+}
+export const App: React.FC<AppProps> = function App({ url, state: { state, js, css } }) {
   let store = createStore(state);
 
   return (

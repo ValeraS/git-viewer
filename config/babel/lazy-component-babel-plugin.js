@@ -19,14 +19,10 @@ module.exports = function lazyComponentBabelPlugin() {
         }
         let body = arrow.body;
 
-        if (
-          !t.isCallExpression(body) ||
-          !t.isIdentifier(body.callee, { name: '_dynamicImport' })
-        ) {
+        if (!t.isCallExpression(body) || !t.isImport(body.callee)) {
           return;
         }
 
-        body.callee.name = 'import';
         let options = template.expression`{
                     asyncLoader() {
                         if (typeof window === 'object') {

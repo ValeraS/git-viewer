@@ -1,9 +1,8 @@
 import * as React from 'react';
-import PropTypes from 'prop-types';
 import { cn } from '@bem-react/classname';
 
-import { Switch, Route } from 'react-router';
-import { PAGES } from 'pages';
+import { Switch, Route, RouteProps } from 'react-router';
+import { PAGES, Routes } from 'pages';
 
 import { useComponentRegistry } from '@bem-react/di';
 
@@ -12,11 +11,16 @@ import { cnTheme } from 'components/Theme/Theme';
 import { cnTypo } from 'components/Typo/Typo';
 
 import './App.css';
+import { Location } from 'history';
 
 export const cnApp = cn('App');
 export const registryId = cnApp();
 
-export function App({ location, ...props }) {
+export interface AppProps {
+  location: Location;
+}
+
+export function App({ location, ...props }: AppProps) {
   const { Header, Footer } = useComponentRegistry(registryId);
 
   return (
@@ -30,8 +34,8 @@ export function App({ location, ...props }) {
       <ErrorBoundary>
         <main className={cnApp('Main')}>
           <Switch location={location}>
-            {Object.keys(PAGES).map(route => {
-              const RouteComponent = routeProps => {
+            {(Object.keys(PAGES) as Routes[]).map(route => {
+              const RouteComponent = (routeProps: RouteProps) => {
                 const Component = PAGES[route].component;
                 return <Component {...routeProps} {...props} />;
               };
@@ -50,7 +54,3 @@ export function App({ location, ...props }) {
     </div>
   );
 }
-
-App.propTypes = {
-  location: PropTypes.object.isRequired,
-};

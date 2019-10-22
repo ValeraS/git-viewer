@@ -1,6 +1,6 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import { cn } from '@bem-react/classname';
+import { IClassNameProps } from '@bem-react/core';
 
 import { Dropdown } from 'components/Dropdown/Dropdown';
 import { Popup } from 'components/Popup/Popup';
@@ -10,7 +10,15 @@ import './BranchSelector.css';
 
 export const cnBranchSelector = cn('BranchSelector');
 
-export const BranchSelector = function({
+export interface BranchSelectorProps extends IClassNameProps {
+  repoId: string;
+  branches: { name: string; }[];
+  branch: string;
+  path: string;
+
+}
+
+export const BranchSelector: React.FC<BranchSelectorProps> = function({
   repoId,
   branches,
   branch,
@@ -34,12 +42,4 @@ export const BranchSelector = function({
       )}
     />
   );
-};
-
-BranchSelector.propTypes = {
-  repoId: PropTypes.string,
-  branches: PropTypes.array,
-  branch: PropTypes.string,
-  path: PropTypes.string,
-  className: PropTypes.string,
 };

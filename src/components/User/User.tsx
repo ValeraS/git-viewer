@@ -1,16 +1,16 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import { cn } from '@bem-react/classname';
+import { IClassNameProps } from '@bem-react/core';
 
 import './User.css';
 
 export const cnUser = cn('User');
 
-export const User = function({ user, className }) {
+export interface UserProps extends IClassNameProps {
+  user: string;
+}
+
+export const User: React.FC<UserProps> = function({ user, className }) {
   return <span className={cnUser(null, [className])}>{user}</span>;
 };
 
-User.propTypes = {
-  user: PropTypes.string,
-  className: PropTypes.string,
-};

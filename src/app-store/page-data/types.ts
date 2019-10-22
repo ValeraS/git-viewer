@@ -11,10 +11,10 @@ export interface SetPageUrlAction {
   payload: string;
 }
 
-export interface PageData {}
+export type PageData = {} | null;
 
 export type PageState =
-  | { data: PageData | null; url: string }
+  | { data?: PageData; url?: string }
   | undefined
   | null;
 

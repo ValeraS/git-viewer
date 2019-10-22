@@ -34,6 +34,8 @@ function containerWrapper<T, U, V, S extends Constructor<T, U, V>>(
   container: typeof Container
 ) {
   return (...args: RestParamTypes<S, T>) =>
+    //eslint-disable-next-line @typescript-eslint/ban-ts-ignore
+    //@ts-ignore
     new classFunction(container, ...args);
 }
 

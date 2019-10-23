@@ -1,7 +1,7 @@
-import * as React from 'react';
+import React from 'react';
 import { cn } from '@bem-react/classname';
 
-import { Switch, Route, RouteProps } from 'react-router';
+import { Switch, Route, RouteComponentProps } from 'react-router';
 import { PAGES, Routes } from 'pages';
 
 import { useComponentRegistry } from '@bem-react/di';
@@ -14,6 +14,7 @@ import './App.css';
 import { Location } from 'history';
 import { RepoState } from 'app-store/repo/types';
 import { PageData } from 'app-store/page-data/types';
+import { RouterParams } from 'app-store/router/types';
 
 export const cnApp = cn('App');
 export const registryId = cnApp();
@@ -43,7 +44,9 @@ export function App({ location, ...props }: PageResources) {
         <main className={cnApp('Main')}>
           <Switch location={location}>
             {(Object.keys(PAGES) as Routes[]).map(route => {
-              const RouteComponent = (routeProps: RouteProps) => {
+              const RouteComponent = (
+                routeProps: RouteComponentProps<RouterParams>
+              ) => {
                 const Component = PAGES[route].component;
                 return <Component {...routeProps} {...props} />;
               };
